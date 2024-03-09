@@ -28,6 +28,7 @@ public class BlueCenterStealMiddle extends SequentialCommandGroup {
 
     addCommands(
 
+      /*
       new ManualShoot(Arm, 70),
       InitialPose("CenterShoot", false),
       new AlwaysRunningIntake(Intake, Arm, 30).withTimeout(.1),
@@ -37,6 +38,12 @@ public class BlueCenterStealMiddle extends SequentialCommandGroup {
       new ManualShoot(Arm, 70),
       ChoreoPathing("CenterStealLeft", false),
       new ManualShoot(Arm, 70)
+      */
+
+      //new ManualShoot(Arm, 70),
+      InitialPose("CenterShoot", false),
+      //new AlwaysRunningIntake(Intake, Arm, 30).withTimeout(.1),
+      ChoreoPathing("CenterShootAll", false)
       
     );
 

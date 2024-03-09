@@ -6,22 +6,21 @@ package frc.robot.commands;
  
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Hooks;
 import frc.robot.subsystems.Intake;
  
-public class AlwaysRunningIntake extends Command {
+public class ManualArm extends Command {
   /** Creates a new RunIntake. */
 
-  Intake m_intake;
   Arm m_arm;
-  double m_velocity;
+  double m_speed;
 
-  public AlwaysRunningIntake(Intake Intake, Arm Arm, double Velocity) {
+  public ManualArm(Arm Arm, double Speed) {
     
-    m_intake = Intake;
     m_arm = Arm;
-    m_velocity = Velocity;
+    m_speed = Speed;
 
-    addRequirements(Intake, Arm);
+    addRequirements(Arm);
      
   }
 
@@ -35,32 +34,23 @@ public class AlwaysRunningIntake extends Command {
   @Override
   public void execute() {
  
-    m_intake.RunIntake(m_velocity);
-    m_arm.RunBottom(.1);
- 
+    m_arm.RunAngleWithLimits(m_speed);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
  
+    m_arm.RunAngleWithLimits(0);
     
- 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
 
-    if (m_intake.input.get() == false) {
-
-      return true;
-
-    } else {
-
-      return false;
-
-    }
+    return false;
 
   }
 }

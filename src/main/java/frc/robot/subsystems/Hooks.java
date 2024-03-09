@@ -52,6 +52,18 @@ public class Hooks extends SubsystemBase {
 
   }
 
+  public void RunLeftHook(double speed) {
+ 
+    LeftHookMotor.set(-speed);
+
+  }
+
+  public void RunRightHook(double speed) {
+
+    RightHookMotor.set(speed);
+ 
+  }
+
   public void HookPID(double Setpoint) {
  
     RightHookMotor.set(HookPID.calculate(LeftHookEncoder.getAbsolutePosition(), Setpoint));

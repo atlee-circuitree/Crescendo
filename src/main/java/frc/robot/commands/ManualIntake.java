@@ -36,7 +36,17 @@ public class ManualIntake extends Command {
   public void execute() {
  
     m_intake.RunIntake(m_velocity);
-    m_arm.RunBottom(.1);
+
+    if (m_velocity > 0) {
+
+      m_arm.RunBottom(.1);
+
+    } else {
+
+       m_arm.RunBottom(-.1);
+
+    }
+ 
  
   }
 
@@ -53,7 +63,15 @@ public class ManualIntake extends Command {
   @Override
   public boolean isFinished() {
 
-    return false;
+    if (m_intake.input.get() == false) {
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
 
   }
 }

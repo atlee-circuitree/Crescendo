@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.AlwaysRunningIntake;
 import frc.robot.commands.AutoArm;
 import frc.robot.commands.ManualShoot;
@@ -21,10 +22,12 @@ import frc.robot.subsystems.Intake;
 public class RedCenterShootMiddle4 extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
+  RobotContainer m_RobotContainer;
 
-  public RedCenterShootMiddle4(Drivetrain Drivetrain, Arm Arm, Intake Intake) {
+  public RedCenterShootMiddle4(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
+    m_RobotContainer = RobotContainer;
 
     addCommands(
 
@@ -36,6 +39,7 @@ public class RedCenterShootMiddle4 extends SequentialCommandGroup {
       ChoreoPathing("CenterShoot2", true),
       new ManualShoot(Arm, 70),
       ChoreoPathing("CenterShoot3", true),
+      m_RobotContainer.LimelightIntake().withTimeout(.43),
       ChoreoPathing("CenterShoot4", true),
       new ManualShoot(Arm, 70)
       

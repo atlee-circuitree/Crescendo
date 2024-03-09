@@ -22,18 +22,18 @@ public class Intake extends SubsystemBase {
 
   VelocityVoltage VelocityVolts;
 
-  private Lidar m_Lidar;
-   
+  public DigitalInput input;
+ 
   /** Creates a new Intake. */
   public Intake() {
  
-    m_Lidar = new Lidar(new DigitalInput(0));
-  
     FrontIntakeMotor = new TalonFX(Constants.CAN_IDs.FrontIntakeID, "FRC 1599");
     RearFlyMotor = new TalonFX(Constants.CAN_IDs.RearFlyID, "FRC 1599");
     FrontFlyMotor = new TalonFX(Constants.CAN_IDs.FrontFlyID, "FRC 1599");
 
     VelocityVolts = new VelocityVoltage(0);
+
+    input = new DigitalInput(0);
 
     var VelocityConfig = new Slot0Configs();
     VelocityConfig.kV = 0.12;
@@ -48,8 +48,8 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
  
-    SmartDashboard.putNumber("Lidar", m_Lidar.getDistanceIn());
-    
+    SmartDashboard.putBoolean("Lidar Bool", input.get());
+
   }
 
   public void RunIntake(double Velocity) {

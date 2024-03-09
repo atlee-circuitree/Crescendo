@@ -25,7 +25,7 @@ public class Arm extends SubsystemBase {
   DutyCycleEncoder AngleEncoder;
 
   double CurrentTicks;
-  double CurrentAngle;
+  public double CurrentAngle;
  
   VelocityVoltage VelocityVolts;
  
