@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.autos.BlueBackUp;
 import frc.robot.autos.BlueCenterShoot1;
 import frc.robot.autos.BlueCenterShootMiddle4;
 import frc.robot.autos.BlueCenterStealMiddle;
@@ -52,7 +53,7 @@ public class RobotContainer {
  
   // Variables
   private static final double MaxSpeed = 5; // 6 meters per second desired top speed
-  private static final double MaxAngularRate = 4 * Math.PI; // Half a rotation per second max angular velocity
+  private static final double MaxAngularRate = 2 * Math.PI; // Half a rotation per second max angular velocity
   SendableChooser<Command> AutoSelect = new SendableChooser<Command>();
  
   // Controllers
@@ -140,7 +141,8 @@ public class RobotContainer {
     AutoSelect.addOption("Red Right Just Move", new RedRightJustMove(drivetrain,arm,intake));
     AutoSelect.addOption("Red Left Just Move", new RedLeftJustMove(drivetrain,arm,intake));
     AutoSelect.addOption("Blue Left Just Move", new BlueLeftJustMove(drivetrain,arm,intake));
-      AutoSelect.addOption("Blue Right Move and Steal", new BlueRightMoveAndSteal(drivetrain,arm,intake));
+    AutoSelect.addOption("Blue Right Move and Steal", new BlueRightMoveAndSteal(drivetrain,arm,intake));
+    AutoSelect.addOption("Back Up", new BlueBackUp(drivetrain,arm,intake));
     SmartDashboard.putData("Select Auto", AutoSelect);
 
   }
@@ -163,7 +165,7 @@ public class RobotContainer {
     return new ParallelCommandGroup(
 
       new ManualIntake(intake, arm, 45),
-        drivetrain.applyRequest(() -> driveFieldCentric
+        drivetrain.applyRequest(() -> driveRobotCentric
         .withVelocityX(1.5)  
         .withVelocityY(0) 
         .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))

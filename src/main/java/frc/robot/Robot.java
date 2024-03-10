@@ -25,9 +25,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     
+    
     CommandScheduler.getInstance().run(); 
-
-    var lastResult = LimelightHelpers.getLatestResults("limelight").targetingResults;
+    /*
+    var lastResult = LimelightHelpers.getLatestResults("limelight-sh").targetingResults;
 
     Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
 
@@ -36,6 +37,7 @@ public class Robot extends TimedRobot {
       m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp());
         
     }
+    */
  
   }
 
@@ -52,6 +54,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+
+    /* 
+    var lastResult = LimelightHelpers.getLatestResults("limelight-sh").targetingResults;
+
+    Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
+
+    if (lastResult.valid) {
+
+      m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp());
+        
+    }
+    */
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
@@ -62,7 +77,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
-    var lastResult = LimelightHelpers.getLatestResults("limelight").targetingResults;
+    /* 
+    var lastResult = LimelightHelpers.getLatestResults("limelight-sh").targetingResults;
 
     Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
 
@@ -71,6 +87,7 @@ public class Robot extends TimedRobot {
       m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp());
         
     }
+    */
 
   }
 

@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.commands.AlwaysRunningIntake;
 import frc.robot.commands.AutoArm;
 import frc.robot.commands.ManualIntake;
@@ -21,44 +20,24 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 
-public class BlueCenterShootMiddle4 extends SequentialCommandGroup {
+public class BlueBackUp extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
-  RobotContainer m_RobotContainer;
 
-  public BlueCenterShootMiddle4(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public BlueBackUp(Drivetrain Drivetrain, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
-    m_RobotContainer = RobotContainer;
 
     addCommands(
 
-      // First Shot
-      new ManualShoot(Arm, 120),
-      InitialPose("CenterShoot", false),
-
-      // Second Shot
-      new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65).withTimeout(5),
-      ChoreoPathing("CenterShoot", false)
+      new ManualShoot(Arm, 70),
+      InitialPose("BackUp", false),
+        new ParallelCommandGroup(
+      new ManualIntake(Intake, Arm, 75),
+      ChoreoPathing("BackUp", false)
       ),
-      new ManualShoot(Arm, 120),
-
-      // Third Shot
-      new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65).withTimeout(5),
-      ChoreoPathing("CenterShoot2", false)
-      ),
-      new ManualShoot(Arm, 120),
-
-      // Fourth Shot
-      new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65),
-      ChoreoPathing("CenterShoot3", false)
-      ).withTimeout(9),
-      //m_RobotContainer.LimelightIntake().withTimeout(1.2),
-      new ManualShoot(Arm, 120)
-      
+      new ManualShoot(Arm, 70)
+     
     );
 
   }
