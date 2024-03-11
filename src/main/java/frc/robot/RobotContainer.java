@@ -36,6 +36,7 @@ import frc.robot.autos.RedCloseLeftStealLeftLineupLeft;
 import frc.robot.autos.RedLeftJustMove;
 import frc.robot.autos.RedRightJustMove;
 import frc.robot.commands.AutoArm;
+import frc.robot.commands.IntakeLights;
 import frc.robot.commands.ManualArm;
 import frc.robot.commands.ManualHooks;
 import frc.robot.commands.ManualIntake;
@@ -47,13 +48,14 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hooks;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.LimelightHelpers;
 
 public class RobotContainer {
  
   // Variables
   private static final double MaxSpeed = 5; // 6 meters per second desired top speed
-  private static final double MaxAngularRate = 2 * Math.PI; // Half a rotation per second max angular velocity
+  private static final double MaxAngularRate = 3 * Math.PI; // Half a rotation per second max angular velocity
   SendableChooser<Command> AutoSelect = new SendableChooser<Command>();
  
   // Controllers
@@ -65,6 +67,7 @@ public class RobotContainer {
   private final Arm arm = new Arm();
   private final Intake intake = new Intake();
   private final Hooks hooks = new Hooks();
+  private final Lights lights = new Lights();
 
   // Objects for Tele-op Drive
   public SwerveRequest.FieldCentric driveFieldCentric = new SwerveRequest.FieldCentric()
@@ -85,13 +88,16 @@ public class RobotContainer {
         .withRotationalRate((-Player1.getRightX() * MaxAngularRate)) 
     ));
 
+    // LEDs
+    lights.setDefaultCommand(new IntakeLights(lights, intake));
+
     // Buttons
     Player1.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), new Rotation2d(135)))));//James changed from Leftbumper 2/24/2024
  
     // Intake and Shoot
     Player1.leftTrigger().whileTrue(new SequentialCommandGroup(
     new AutoArm(arm, 66),
-    new ManualIntake(intake, arm, 45)
+    new ManualIntake(intake, arm, 60)
     ));
     Player1.y().whileTrue(new ManualIntake(intake, arm, -45)); //Rotations per second
     Player1.rightTrigger().whileTrue(new ManualShoot(arm, 300));//120 velocity
@@ -99,9 +105,9 @@ public class RobotContainer {
     // Limelight Intake
     Player1.leftBumper().whileTrue( 
         new ParallelCommandGroup(
-        new ManualIntake(intake, arm, 45),
+        new ManualIntake(intake, arm, 60),
         drivetrain.applyRequest(() -> driveRobotCentric
-        .withVelocityX(1.5)  
+        .withVelocityX(2)  
         .withVelocityY(0) 
         .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))));
 

@@ -60,4 +60,10 @@ public class Intake extends SubsystemBase {
  
   }
 
+  public boolean GetSensor() {
+
+    return input.get();
+
+  }
+
 }
