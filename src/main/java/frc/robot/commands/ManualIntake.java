@@ -63,7 +63,7 @@ public class ManualIntake extends Command {
   @Override
   public boolean isFinished() {
 
-    if (m_intake.input.get() == false) {
+    if (m_intake.input.get() == false && m_velocity > 0) {
 
       return true;
 

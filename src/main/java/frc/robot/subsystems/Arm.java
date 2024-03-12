@@ -28,6 +28,8 @@ public class Arm extends SubsystemBase {
   public double CurrentAngle;
  
   VelocityVoltage VelocityVolts;
+
+  int distance;
  
   public Arm() {
  
@@ -78,6 +80,8 @@ public class Arm extends SubsystemBase {
     CurrentAngle = -(CurrentTicks / (.072 / 28) - 328) - 6;
  
     SmartDashboard.putNumber("Angle Encoder Degrees", CurrentAngle);
+
+    distance = (int) Math.round(getDistanceToAprilTag() * 10);
  
   }
 
@@ -129,5 +133,41 @@ public class Arm extends SubsystemBase {
     BottomShootingMotor.set(speed);
 
   }
+
+  public double getDistanceToAprilTag(){
+
+    double ty = LimelightHelpers.getTY("limelight-sh");
+  
+    double targetOffsetAngle_Vertical = ty;
+
+    //how many degrees back is your limelight rotated from perfectly vertical?
+    double limelightMountAngleDegrees = 30;//was30
+
+    //distance from the center of the Limelight lens to the floor
+    double limelightHeightInches = 24.5;
+
+    //distance from the low tags to the floor
+    double tagHeightInches = 58;
+ 
+    double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+    double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+
+    //calculate distance
+    double distanceFromLimelightToGoalInches = -1;
+ 
+    distanceFromLimelightToGoalInches = (tagHeightInches - limelightHeightInches)/Math.tan(angleToGoalRadians);
+ 
+    double distanceFromLimelighttoGoalMeters = distanceFromLimelightToGoalInches / 39.37;
+ 
+      return distanceFromLimelighttoGoalMeters;
+ 
+  }
+
+  public int ConvertedDistance() {
+
+    return distance;
+
+  }
+    
 
 }

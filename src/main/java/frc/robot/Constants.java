@@ -1,15 +1,16 @@
 package frc.robot;
 
 import edu.wpi.first.math.controller.PIDController;
+import frc.robot.subsystems.LimelightHelpers;
 
 public class Constants {
 
     // Commit Test
 
     // PID Controllers
-    public static PIDController AutoDrivePID = new PIDController(1, 0.001, 0);
-    public static PIDController AutoTurnPID = new PIDController(2, 0, 0);
-    public static PIDController AnglePID = new PIDController(.06, 0, 0);
+    public static PIDController AutoDrivePID = new PIDController(2, 0.01, 0);
+    public static PIDController AutoTurnPID = new PIDController(6, 0, 0);
+    public static PIDController AnglePID = new PIDController(.12, 0, 0);
 
     // Limits
     public static double UpperArmLimit = -90;
@@ -56,6 +57,50 @@ public class Constants {
         public final String CANBUS_NAME = "FRC 1599";
 
     }
+
+    public static int[] ShootAngle = {
+        55, // 0 Meters 
+        55, 
+        55, 
+        55, 
+        55, 
+        55, 
+        55, 
+        55,
+        54,
+        53,
+        48,  // 1 Meter
+        48,
+        48,
+        48,
+        47, //50
+        47,
+        44, //47
+        42,
+        39, //42
+        37,
+        36,  // 2 Meter
+        36,
+        35,
+        34,
+        33, // 34
+        32,
+        31,
+        30,
+        29,
+        29,
+        29,  // 3 Meter
+        29,
+        29,
+        29,
+        29,
+        29,
+        29,
+        29,
+        29,
+        29,
+        29,  // 4 Meter
+    }; 
  
     public class Colors {
 
@@ -99,5 +144,5 @@ public class Constants {
         public static double GrayLarsonScanner = -.33;
         
     }
-        
+   
 }

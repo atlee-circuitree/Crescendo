@@ -100,7 +100,7 @@ public class RobotContainer {
     new ManualIntake(intake, arm, 60)
     ));
     Player1.y().whileTrue(new ManualIntake(intake, arm, -45)); //Rotations per second
-    Player1.rightTrigger().whileTrue(new ManualShoot(arm, 300));//120 velocity
+    Player1.rightTrigger().whileTrue(new ManualShoot(arm, 350));//120 velocity
 
     // Limelight Intake
     Player1.leftBumper().whileTrue( 
@@ -111,12 +111,16 @@ public class RobotContainer {
         .withVelocityY(0) 
         .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))));
 
+
+    Player1.rightBumper().whileTrue(new AutoArm(arm, Constants.ShootAngle[arm.ConvertedDistance()]));
+
     // Arm
     Player1.a().onTrue(new AutoArm(arm, 66));
-    Player1.x().onTrue(new AutoArm(arm, 0));
+    Player1.b().whileTrue(new ManualArm(arm, 0));
+    Player1.x().onTrue(new AutoArm(arm, -60));
 
-    Player1.povUp().whileTrue(new ManualArm(arm, .2));
-    Player1.povDown().whileTrue(new ManualArm(arm, -.2));
+    Player1.povDown().whileTrue(new ManualArm(arm, .2));
+    Player1.povUp().whileTrue(new ManualArm(arm, -.2));
     
     // Hooks
     Player2.a().whileTrue(new ManualHooks(hooks, 1));
