@@ -97,7 +97,7 @@ public class RobotContainer {
     // Intake and Shoot
     Player1.leftTrigger().whileTrue(new SequentialCommandGroup(
     new AutoArm(arm, 67.5),
-    new ManualIntake(intake, arm, 60)
+    new ManualIntake(intake, arm, 120)
     ));
     Player1.y().whileTrue(new ManualIntake(intake, arm, -45)); //Rotations per second
     Player1.rightTrigger().whileTrue(new ManualShoot(arm, 350));//120 velocity
