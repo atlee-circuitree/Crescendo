@@ -135,10 +135,11 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
 
     // Auto Options
-    AutoSelect.setDefaultOption("Blue Center Steal", new BlueCenterStealMiddle(drivetrain, arm, intake));
-    AutoSelect.addOption("Red Center Steal", new RedCenterStealMiddle(drivetrain, arm, intake));
+    //AutoSelect.setDefaultOption("Blue Center Steal", new BlueCenterStealMiddle(drivetrain, arm, intake));
+    //AutoSelect.addOption("Red Center Steal", new RedCenterStealMiddle(drivetrain, arm, intake));
     AutoSelect.addOption("Blue Center Shoot 4", new BlueCenterShootMiddle4(drivetrain, this, arm, intake));
     AutoSelect.addOption("Red Center Shoot 4", new RedCenterShootMiddle4(drivetrain, this, arm, intake));
+    /* 
     AutoSelect.addOption("Blue Close Left, Steal Left, and Lineup Left", new BlueCloseLeftStealLeftLineupLeft(drivetrain,arm,intake));
     AutoSelect.addOption("Red Close Left, Steal Left, and Lineup Left", new RedCloseLeftStealLeftLineupLeft(drivetrain,arm,intake));
     AutoSelect.addOption("Blue Close Left", new BlueCloseLeft(drivetrain,arm,intake));
@@ -153,6 +154,7 @@ public class RobotContainer {
     AutoSelect.addOption("Blue Left Just Move", new BlueLeftJustMove(drivetrain,arm,intake));
     AutoSelect.addOption("Blue Right Move and Steal", new BlueRightMoveAndSteal(drivetrain,arm,intake));
     AutoSelect.addOption("Back Up", new BlueBackUp(drivetrain,arm,intake));
+    */
     SmartDashboard.putData("Select Auto", AutoSelect);
 
   }

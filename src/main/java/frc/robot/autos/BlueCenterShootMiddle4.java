@@ -40,28 +40,28 @@ public class BlueCenterShootMiddle4 extends SequentialCommandGroup {
 
       // Second Shot
       new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot", false) 
       ).withTimeout(3.4),
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       new ManualShoot(Arm, 120),
 
       // Third Shot
       new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot2", false)
       ),
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       new ManualShoot(Arm, 120).withTimeout(3.8),
 
       // Fourth Shot
       new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot3", false)
       ).withTimeout(1.3),
 
       new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric
         .withVelocityX(1)  
         .withVelocityY(0) 
@@ -69,11 +69,11 @@ public class BlueCenterShootMiddle4 extends SequentialCommandGroup {
       ).withTimeout(1.1),
          
       new ParallelCommandGroup(
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot4", false)
       ).withTimeout(2),
 
-      new ManualIntake(Intake, Arm, 65),
+      new ManualIntake(Intake, Arm, 120),
       new ManualShoot(Arm, 120)
       
     );
