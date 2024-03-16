@@ -7,6 +7,8 @@ package frc.robot.autos;
 import com.choreo.lib.Choreo;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -54,15 +56,11 @@ public class RedLeftJustMove extends SequentialCommandGroup {
 
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
-    if (IsRed = true) {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).flipped().getInitialPose()));
-
-    } else {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
-
-    }
+return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(new Pose2d(
+      16.565 - Choreo.getTrajectory(Trajectory).getInitialPose().getX(),
+      Choreo.getTrajectory(Trajectory).getInitialPose().getY(),
+     // Choreo.getTrajectory(Trajectory).getInitialPose().getRotation().minus(new Rotation2d(3.1415)))));
+      new Rotation2d(-Math.PI).minus(Choreo.getTrajectory(Trajectory).getInitialPose().getRotation()))));
 
   }
 

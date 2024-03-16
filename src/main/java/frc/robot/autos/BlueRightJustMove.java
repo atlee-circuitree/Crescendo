@@ -54,15 +54,7 @@ public class BlueRightJustMove extends SequentialCommandGroup {
 
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
-    if (IsRed = true) {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).flipped().getInitialPose()));
-
-    } else {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
-
-    }
+    return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
 
   }
 

@@ -97,15 +97,7 @@ public class BlueCenterShootMiddle4 extends SequentialCommandGroup {
 
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
-    if (IsRed = true) {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
-      
-    } else {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).flipped().getInitialPose()));
-
-    }
+    return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
 
   }
 
