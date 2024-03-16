@@ -77,7 +77,7 @@ public class Arm extends SubsystemBase {
 
     }
  
-    CurrentAngle = -(CurrentTicks / (.072 / 28) - 328) - 6;
+    CurrentAngle = -(CurrentTicks / (.072 / 28) - 328) - 9;
  
     SmartDashboard.putNumber("Angle Encoder Degrees", CurrentAngle);
 

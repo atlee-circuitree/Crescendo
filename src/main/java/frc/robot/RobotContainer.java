@@ -17,10 +17,11 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.BlueBackUp;
+import frc.robot.autos.BlueCenterDelayedBackUp;
 import frc.robot.autos.BlueCenterShoot1;
+import frc.robot.autos.BlueCenterShootMiddle3;
 import frc.robot.autos.BlueCenterShootMiddle4;
 import frc.robot.autos.BlueCenterStealMiddle;
-import frc.robot.autos.BlueCloseLeft;
 import frc.robot.autos.BlueCloseLeftStealLeft;
 import frc.robot.autos.BlueCloseLeftStealLeftLineupLeft;
 import frc.robot.autos.BlueLeftJustMove;
@@ -96,8 +97,8 @@ public class RobotContainer {
  
     // Intake and Shoot
     Player1.leftTrigger().whileTrue(new SequentialCommandGroup(
-    new AutoArm(arm, 67.5),
-    new ManualIntake(intake, arm, 120)
+    new AutoArm(arm, 67.5),                                                                                                             
+    new ManualIntake(intake, arm, 140)
     ));
     Player1.y().whileTrue(new ManualIntake(intake, arm, -45)); //Rotations per second
     Player1.rightTrigger().whileTrue(new ManualShoot(arm, 350));//120 velocity
@@ -105,7 +106,7 @@ public class RobotContainer {
     // Limelight Intake
     Player1.leftBumper().whileTrue( 
         new ParallelCommandGroup(
-        new ManualIntake(intake, arm, 60),
+        new ManualIntake(intake, arm, 120),
         drivetrain.applyRequest(() -> driveRobotCentric
         .withVelocityX(2)  
         .withVelocityY(0) 
@@ -115,7 +116,7 @@ public class RobotContainer {
     Player1.rightBumper().whileTrue(new AutoArm(arm, Constants.ShootAngle[arm.ConvertedDistance()]));
 
     // Arm
-    Player1.a().onTrue(new AutoArm(arm, 66));
+    Player1.a().onTrue(new AutoArm(arm, 68));
     Player1.b().whileTrue(new ManualArm(arm, 0));
     Player1.x().onTrue(new AutoArm(arm, -60));
 
@@ -125,6 +126,7 @@ public class RobotContainer {
     // Hooks
     Player2.a().whileTrue(new ManualHooks(hooks, 1));
     Player2.y().whileTrue(new ManualHooks(hooks, -1));
+    Player2.x().onTrue(new AutoArm(arm, -60));
 
     Player2.leftBumper().whileTrue(new ManualLeftHook(hooks, -.80));
     Player2.leftTrigger().whileTrue(new ManualLeftHook(hooks, .80));
@@ -143,6 +145,8 @@ public class RobotContainer {
     AutoSelect.addOption("Blue Right Just Move", new BlueRightJustMove(drivetrain,arm,intake));
     AutoSelect.addOption("Red Right Just Move", new RedLeftJustMove(drivetrain,arm,intake));
     AutoSelect.addOption("Red Left Just Move", new RedRightJustMove(drivetrain,arm,intake));
+    AutoSelect.addOption("Blue Delayed Backup", new BlueCenterDelayedBackUp(drivetrain, this, arm,intake));
+    AutoSelect.addOption("Blue Center Shoot 3", new BlueCenterShootMiddle3(drivetrain, this, arm, intake));
     /* 
     AutoSelect.addOption("Blue Close Left, Steal Left, and Lineup Left", new BlueCloseLeftStealLeftLineupLeft(drivetrain,arm,intake));
     AutoSelect.addOption("Red Close Left, Steal Left, and Lineup Left", new RedCloseLeftStealLeftLineupLeft(drivetrain,arm,intake));

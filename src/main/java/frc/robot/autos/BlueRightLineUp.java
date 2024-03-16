@@ -18,21 +18,20 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 
-public class BlueCloseLeft extends SequentialCommandGroup {
+public class BlueRightLineUp extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
 
-  public BlueCloseLeft(Drivetrain Drivetrain, Arm Arm, Intake Intake) {
+  public BlueRightLineUp(Drivetrain Drivetrain, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
 
     addCommands(
 
       new ManualShoot(Arm, 70),
-      InitialPose("CloseLeft", false),
-      new AlwaysRunningIntake(Intake, Arm, 30).withTimeout(.1),
-      ChoreoPathing("CloseLeft", false),
-      new ManualShoot(Arm, 70)
+      InitialPose("Lineup", false),
+      ChoreoPathing("RightJustMove", false)
+   
      
     );
 
@@ -55,15 +54,7 @@ public class BlueCloseLeft extends SequentialCommandGroup {
 
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
-    if (IsRed = true) {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).flipped().getInitialPose()));
-
-    } else {
-
-      return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
-
-    }
+    return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
 
   }
 
