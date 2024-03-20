@@ -10,7 +10,7 @@ public class Constants {
     // PID Controllers
     public static PIDController AutoDrivePID = new PIDController(2, 0.01, 0);
     public static PIDController AutoTurnPID = new PIDController(6, 0, 0);
-    public static PIDController AnglePID = new PIDController(.12, 0, 0);
+    public static PIDController AnglePID = new PIDController(.01, 0, 0);
 
     // Limits
     public static double UpperArmLimit = -90;
