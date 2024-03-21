@@ -22,12 +22,12 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
+public class BackfeedBlueCenterShoot4 extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   RobotContainer m_RobotContainer;
 
-  public LimelightBlueCenterShoot4(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public BackfeedBlueCenterShoot4(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_RobotContainer = RobotContainer;
@@ -37,65 +37,54 @@ public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
       // First Shot
 
       new ManualShoot(Arm, 120), // Shoot your preload
-      InitialPose("CSLimelight1", false), // Seed your inital position
+      InitialPose("CSBackfeed1", false), // Seed your inital position
 
       // Second Shot
 
-      ChoreoPathing("CSLimelight1", false), // Line up with the center close note
+      new ParallelCommandGroup( // Go to the speaker to shoot our note
+      new ManualIntake(Intake, Arm, 120), 
+      ChoreoPathing("CSBackfeed1", false)
+      ),
+      new ManualIntake(Intake, Arm, 120).withTimeout(1.5), 
+      new ManualShoot(Arm, 120),
 
-      new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
-        new ManualIntake(Intake, Arm, 120), // Enables intake
-        m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-          .withVelocityX(1)  
-          .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
-          .withRotationalRate(0))
-      ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0), // Command ends when the note loses detection
+      // Third Shot
 
       new ParallelCommandGroup( // Go to the speaker to shoot our note
       new ManualIntake(Intake, Arm, 120), 
-      ChoreoPathing("CSLimelight2", false)
+      ChoreoPathing("CSBackfeed2", false)
       ),
-
-      new ManualShoot(Arm, 120), // Shoot the note
-
-      // Thrid Shot
-
-      ChoreoPathing("CSLimelight3", false), // Line up with the center close note
-
-      new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
-        new ManualIntake(Intake, Arm, 120), // Enables intake
-        m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-          .withVelocityX(1)  
-          .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
-          .withRotationalRate(0))
-      ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0), // Command ends when the note loses detection
-
-      new ParallelCommandGroup( // Go to the speaker to shoot our note
-      new ManualIntake(Intake, Arm, 120), 
-      ChoreoPathing("CSLimelight4", false)
-      ),
-
-      new ManualShoot(Arm, 120), // Shoot the note
+      new ManualIntake(Intake, Arm, 120).withTimeout(1.5), 
+      new ManualShoot(Arm, 120),
 
       // Fourth Shot
 
-      ChoreoPathing("CSLimelight5", false), // Line up with the center close note
+      new ParallelCommandGroup( // Go to the speaker to shoot our note
+      new ManualIntake(Intake, Arm, 120), 
+      ChoreoPathing("CSBackfeed3", false)
+      ),
+      new ManualIntake(Intake, Arm, 120).withTimeout(1.5), 
+      new ManualShoot(Arm, 120),
+
+      // Use what time is left to get a note using limelight
+
+      ChoreoPathing("CSBackfeed4", false),
 
       new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
         new ManualIntake(Intake, Arm, 120), // Enables intake
         m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-          .withVelocityX(1)  
+          .withVelocityX(1.5)  
           .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
           .withRotationalRate(0))
-      ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0), // Command ends when the note loses detection
+      ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0),
 
       new ParallelCommandGroup( // Go to the speaker to shoot our note
       new ManualIntake(Intake, Arm, 120), 
-      ChoreoPathing("CSLimelight6", false)
-      ),
-
-      new ManualShoot(Arm, 120) // Shoot the note
-      
+      ChoreoPathing("CSBackfeed5", false)
+      ).withTimeout(3.3)
+ 
+ 
+ 
     );
 
   }
@@ -111,7 +100,7 @@ public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
       () -> IsRed, 
       m_drivetrain
 
-    ).withTimeout(Choreo.getTrajectory(Trajectory).getTotalTime() * 1.1);
+    ).withTimeout(Choreo.getTrajectory(Trajectory).getTotalTime() * 1.2);
 
   }
  
