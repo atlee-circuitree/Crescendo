@@ -39,7 +39,6 @@ import frc.robot.autos.RedCloseLeftStealLeft;
 import frc.robot.autos.RedCloseLeftStealLeftLineupLeft;
 import frc.robot.autos.RedLeftJustMove;
 import frc.robot.autos.RedRightJustMove;
-import frc.robot.autos.exampleaut;
 import frc.robot.commands.AutoArm;
 import frc.robot.commands.IntakeLights;
 import frc.robot.commands.ManualArm;
@@ -101,7 +100,7 @@ public class RobotContainer {
  
     // Intake and Shoot
     Player1.leftTrigger().whileTrue(new SequentialCommandGroup(
-    new AutoArm(arm, 67.5),                                                                                                             
+    new AutoArm(arm, 66),                                                                                                             
     new ManualIntake(intake, arm, 140)
     ));
     Player1.y().whileTrue(new ManualIntake(intake, arm, -45)); //Rotations per second
@@ -122,15 +121,15 @@ public class RobotContainer {
     // Arm
     Player1.a().onTrue(new AutoArm(arm, 66));
     Player1.b().whileTrue(new ManualArm(arm, 0));
-    Player1.x().onTrue(new AutoArm(arm, -60));
+    Player1.x().onTrue(new AutoArm(arm, -50));
 
-    Player1.povDown().whileTrue(new ManualArm(arm, .2));
-    Player1.povUp().whileTrue(new ManualArm(arm, -.2));
+    Player1.povDown().whileTrue(new ManualArm(arm, .05));
+    Player1.povUp().whileTrue(new ManualArm(arm, -.05));
     
     // Hooks
     Player2.a().whileTrue(new ManualHooks(hooks, 1));
     Player2.y().whileTrue(new ManualHooks(hooks, -1));
-    Player2.x().onTrue(new AutoArm(arm, -60));
+    Player2.x().onTrue(new AutoArm(arm, -50));
 
     Player2.leftBumper().whileTrue(new ManualLeftHook(hooks, -.80));
     Player2.leftTrigger().whileTrue(new ManualLeftHook(hooks, .80));
@@ -141,12 +140,13 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
 
     // Auto Options
+ 
     AutoSelect.setDefaultOption("Blue Center Shoot 4", new BlueCenterShootMiddle4(drivetrain, this, arm, intake));
     AutoSelect.addOption("Red Center Shoot 4", new RedCenterShootMiddle4(drivetrain, this, arm, intake));
+    
     AutoSelect.addOption("Blue LIMELIGHT Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
     AutoSelect.addOption("Blue BACKFEED Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
-    AutoSelect.addOption("cory dont pick this u idiot", new exampleaut(drivetrain, null, arm, intake));
-    
+ 
     SmartDashboard.putData("Select Auto", AutoSelect);
 
   }

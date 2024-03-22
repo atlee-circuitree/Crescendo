@@ -67,6 +67,7 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
  
+    /*
     if (AngleEncoder.getAbsolutePosition() < .2) {
 
       CurrentTicks = AngleEncoder.getAbsolutePosition() + 1;
@@ -76,8 +77,11 @@ public class Arm extends SubsystemBase {
       CurrentTicks = AngleEncoder.getAbsolutePosition();
 
     }
+    */
+
+    CurrentTicks = AngleEncoder.getAbsolutePosition();
  
-    CurrentAngle = -(CurrentTicks / (.072 / 28) - 328) - 9;
+    CurrentAngle = -CurrentTicks / (.072 / 28) + 68;
  
     SmartDashboard.putNumber("Angle Encoder Degrees", CurrentAngle);
 
