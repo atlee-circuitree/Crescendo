@@ -22,69 +22,25 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class BackfeedBlueCenterShoot4 extends SequentialCommandGroup {
+public class exampleaut extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   RobotContainer m_RobotContainer;
 
-  public BackfeedBlueCenterShoot4(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public exampleaut(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_RobotContainer = RobotContainer;
 
     addCommands(
 
-      // First Shot
-
-      new ManualShoot(Arm, 120), // Shoot your preload
-      InitialPose("CSBackfeed1", false), // Seed your inital position
-
-      // Second Shot
-
+      InitialPose("ex1", false),
+      ChoreoPathing("ex1", false),
       new ParallelCommandGroup( // Go to the speaker to shoot our note
         new ManualIntake(Intake, Arm, 120), 
-        ChoreoPathing("CSBackfeed1", false)
-      ),
-      new ManualIntake(Intake, Arm, 120).withTimeout(1.5), 
-      new ManualShoot(Arm, 120),
-
-      // Third Shot
-
-      new ParallelCommandGroup( // Go to the speaker to shoot our note
-      new ManualIntake(Intake, Arm, 120), 
-      ChoreoPathing("CSBackfeed2", false)
-      ),
-      new ManualIntake(Intake, Arm, 120).withTimeout(1.5), 
-      new ManualShoot(Arm, 120),
-
-      // Fourth Shot
-
-      new ParallelCommandGroup( // Go to the speaker to shoot our note
-      new ManualIntake(Intake, Arm, 120), 
-      ChoreoPathing("CSBackfeed3", false)
-      ),
-      new ManualIntake(Intake, Arm, 120).withTimeout(1.5), 
-      new ManualShoot(Arm, 120),
-
-      // Use what time is left to get a note using limelight
-
-      ChoreoPathing("CSBackfeed4", false),
-
-      new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
-        new ManualIntake(Intake, Arm, 120), // Enables intake
-        m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-          .withVelocityX(1.5)  
-          .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
-          .withRotationalRate(0))
-      ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0),
-
-      new ParallelCommandGroup( // Go to the speaker to shoot our note
-      new ManualIntake(Intake, Arm, 120), 
-      ChoreoPathing("CSBackfeed5", false)
-      ).withTimeout(3.3)
- 
- 
- 
+        ChoreoPathing("ex2", false)
+      )
+     
     );
 
   }

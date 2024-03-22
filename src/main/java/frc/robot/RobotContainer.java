@@ -39,6 +39,7 @@ import frc.robot.autos.RedCloseLeftStealLeft;
 import frc.robot.autos.RedCloseLeftStealLeftLineupLeft;
 import frc.robot.autos.RedLeftJustMove;
 import frc.robot.autos.RedRightJustMove;
+import frc.robot.autos.exampleaut;
 import frc.robot.commands.AutoArm;
 import frc.robot.commands.IntakeLights;
 import frc.robot.commands.ManualArm;
@@ -140,36 +141,12 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
 
     // Auto Options
-    //AutoSelect.setDefaultOption("Blue Center Steal", new BlueCenterStealMiddle(drivetrain, arm, intake));
-    //AutoSelect.addOption("Red Center Steal", new RedCenterStealMiddle(drivetrain, arm, intake));
     AutoSelect.setDefaultOption("Blue Center Shoot 4", new BlueCenterShootMiddle4(drivetrain, this, arm, intake));
     AutoSelect.addOption("Red Center Shoot 4", new RedCenterShootMiddle4(drivetrain, this, arm, intake));
-    //AutoSelect.addOption("Blue Left Just Move", new BlueLeftJustMove(drivetrain,arm,intake));
-    //AutoSelect.addOption("Blue Right Just Move", new BlueRightJustMove(drivetrain,arm,intake));
-    //AutoSelect.addOption("Red Right Just Move", new RedLeftJustMove(drivetrain,arm,intake));
-    //AutoSelect.addOption("Red Left Just Move", new RedRightJustMove(drivetrain,arm,intake));
-   // AutoSelect.addOption("Blue Delayed Backup", new BlueCenterDelayedBackUp(drivetrain, this, arm,intake));
-    //AutoSelect.addOption("Blue Center Shoot 3", new BlueCenterShootMiddle3(drivetrain, this, arm, intake));
     AutoSelect.addOption("Blue LIMELIGHT Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
     AutoSelect.addOption("Blue BACKFEED Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
-    //AutoSelect.addOption("Back Feed Test", new BackFeedTest(drivetrain, null, arm, intake));
-     //AutoSelect.addOption("Limelight Feed Test", new LimelightFeedTest(drivetrain, null, arm, intake));
-    /* 
-    AutoSelect.addOption("Blue Close Left, Steal Left, and Lineup Left", new BlueCloseLeftStealLeftLineupLeft(drivetrain,arm,intake));
-    AutoSelect.addOption("Red Close Left, Steal Left, and Lineup Left", new RedCloseLeftStealLeftLineupLeft(drivetrain,arm,intake));
-    AutoSelect.addOption("Blue Close Left", new BlueCloseLeft(drivetrain,arm,intake));
-    AutoSelect.addOption("Red Close Left", new RedCloseLeft(drivetrain,arm,intake));
-    AutoSelect.addOption("Blue Close Left and Steal Left", new BlueCloseLeftStealLeft(drivetrain,arm,intake));
-    AutoSelect.addOption("Red Close Left and Steal Left", new RedCloseLeftStealLeft(drivetrain,arm,intake));
-    AutoSelect.addOption("Blue Center Shoot 1", new BlueCenterShoot1(drivetrain,arm,intake));
-    AutoSelect.addOption("Red Center Shoot 1", new RedCenterShoot1(drivetrain,arm,intake));
-    AutoSelect.addOption("Blue Right Just Move", new BlueRightJustMove(drivetrain,arm,intake));
-    AutoSelect.addOption("Red Right Just Move", new RedRightJustMove(drivetrain,arm,intake));
-    AutoSelect.addOption("Red Left Just Move", new RedLeftJustMove(drivetrain,arm,intake));
+    AutoSelect.addOption("cory dont pick this u idiot", new exampleaut(drivetrain, null, arm, intake));
     
-    AutoSelect.addOption("Blue Right Move and Steal", new BlueRightMoveAndSteal(drivetrain,arm,intake));
-    AutoSelect.addOption("Back Up", new BlueBackUp(drivetrain,arm,intake));
-    */
     SmartDashboard.putData("Select Auto", AutoSelect);
 
   }
