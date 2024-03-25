@@ -70,7 +70,7 @@ public class Backfeedexperimental extends SequentialCommandGroup {
       () -> IsRed, 
       m_drivetrain
 
-    ).withTimeout(Choreo.getTrajectory(Trajectory).getTotalTime() * 1.2);
+    );
 
   }
  

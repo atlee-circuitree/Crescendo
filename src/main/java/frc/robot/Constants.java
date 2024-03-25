@@ -8,7 +8,7 @@ public class Constants {
     // Commit Test
 
     // PID Controllers
-    public static PIDController AutoDrivePID = new PIDController(2, 0.01, 0);
+    public static PIDController AutoDrivePID = new PIDController(4, 0.01, 0);
     public static PIDController AutoTurnPID = new PIDController(6, 0, 0);
     public static PIDController AnglePID = new PIDController(.01, 0, 0);
 

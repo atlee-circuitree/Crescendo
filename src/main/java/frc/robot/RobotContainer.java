@@ -59,7 +59,7 @@ import frc.robot.subsystems.LimelightHelpers;
 public class RobotContainer {
  
   // Variables
-  private static final double MaxSpeed = 5; // 6 meters per second desired top speed
+  private static final double MaxSpeed = 8; // 6 meters per second desired top speed
   private static final double MaxAngularRate = 3 * Math.PI; // Half a rotation per second max angular velocity
   SendableChooser<Command> AutoSelect = new SendableChooser<Command>();
  
