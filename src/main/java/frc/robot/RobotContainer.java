@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.BackFeedTest;
+import frc.robot.autos.Backfeedexperimental;
 import frc.robot.autos.BlueBackUp;
 import frc.robot.autos.BlueCenterDelayedBackUp;
 import frc.robot.autos.BlueCenterShoot1;
@@ -146,6 +147,7 @@ public class RobotContainer {
     
     AutoSelect.addOption("Blue LIMELIGHT Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
     AutoSelect.addOption("Blue BACKFEED Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
+     AutoSelect.addOption("test auto", new Backfeedexperimental(drivetrain, null, arm, intake));
  
     SmartDashboard.putData("Select Auto", AutoSelect);
 

@@ -8,6 +8,8 @@ import com.choreo.lib.Choreo;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.proto.Trajectory;
+import edu.wpi.first.units.Velocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -22,25 +24,37 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class exampleaut extends SequentialCommandGroup {
+public class Backfeedexperimental extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   RobotContainer m_RobotContainer;
 
-  public exampleaut(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public Backfeedexperimental(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_RobotContainer = RobotContainer;
 
     addCommands(
 
-      InitialPose("ex1", false),
-      ChoreoPathing("ex1", false),
-      new ParallelCommandGroup( // Go to the speaker to shoot our note
+      InitialPose("Backfeedexperimental", false),
+
+      new ManualShoot(Arm, 70),//preload shot
+       
+      new ParallelCommandGroup( // Go to the speaker to shoot our note cycle 1
         new ManualIntake(Intake, Arm, 120), 
-        ChoreoPathing("ex2", false)
-      )
-     
+        ChoreoPathing("Backfeedexperimental", false)
+        
+      ),
+      new ManualShoot(Arm, 70),
+      
+      new ParallelCommandGroup( // Go to the speaker to shoot our note cycle 2
+        new ManualIntake(Intake, Arm, 120), 
+        ChoreoPathing("Backfeedexperimental", false)
+        
+      ),
+      new ManualShoot(Arm, 70)
+
+
     );
 
   }

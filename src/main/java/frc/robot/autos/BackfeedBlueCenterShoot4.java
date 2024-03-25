@@ -37,7 +37,7 @@ public class BackfeedBlueCenterShoot4 extends SequentialCommandGroup {
       // First Shot
 
       new ManualShoot(Arm, 120), // Shoot your preload
-      InitialPose("CSBackfeed1", false), // Seed your inital position
+      InitialPose("CSBackfeed1", false), // Set your inital field position
 
       // Second Shot
 
