@@ -5,12 +5,14 @@
 package frc.robot.autos;
 
 import com.choreo.lib.Choreo;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.AlwaysRunningIntake;
@@ -32,6 +34,11 @@ public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
     m_drivetrain = Drivetrain;
     m_RobotContainer = RobotContainer;
 
+    
+    SwerveRequest.RobotCentric driveRobotCentric = new SwerveRequest.RobotCentric()
+      .withDeadband(9 * 0.03).withRotationalDeadband(Math.PI * 3 * 0.05) // Small deadband
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I DON'T want field-centric
+
     addCommands(
 
       // First Shot
@@ -45,8 +52,8 @@ public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
 
       new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
         new ManualIntake(Intake, Arm, 120), // Enables intake
-        m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-          .withVelocityX(1)  
+        m_drivetrain.applyRequest(() -> driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
+          .withVelocityX(1.8)  
           .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
           .withRotationalRate(0))
       ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0), // Command ends when the note loses detection
@@ -59,13 +66,13 @@ public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
       new ManualShoot(Arm, 120), // Shoot the note
 
       // Thrid Shot
-
+      InitialPose("CSLimelight3", false),
       ChoreoPathing("CSLimelight3", false), // Line up with the center close note
-
+      new WaitCommand(.1),
       new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
         new ManualIntake(Intake, Arm, 120), // Enables intake
-        m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-          .withVelocityX(1)  
+        m_drivetrain.applyRequest(() -> driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
+          .withVelocityX(1.8)  
           .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
           .withRotationalRate(0))
       ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0), // Command ends when the note loses detection
@@ -78,13 +85,14 @@ public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
       new ManualShoot(Arm, 120), // Shoot the note
 
       // Fourth Shot
-
+      InitialPose("CSLimelight5", false),
       ChoreoPathing("CSLimelight5", false), // Line up with the center close note
+      new WaitCommand(.3),
 
       new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
         new ManualIntake(Intake, Arm, 120), // Enables intake
-        m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-          .withVelocityX(1)  
+        m_drivetrain.applyRequest(() -> driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
+          .withVelocityX(1.8)  
           .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
           .withRotationalRate(0))
       ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0), // Command ends when the note loses detection
@@ -111,7 +119,7 @@ public class LimelightBlueCenterShoot4 extends SequentialCommandGroup {
       () -> IsRed, 
       m_drivetrain
 
-    ).withTimeout(Choreo.getTrajectory(Trajectory).getTotalTime() * 1.1);
+    ).withTimeout(Choreo.getTrajectory(Trajectory).getTotalTime() * 1.2);
 
   }
  

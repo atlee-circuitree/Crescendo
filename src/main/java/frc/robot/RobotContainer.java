@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.BackFeedTest;
+import frc.robot.autos.BackfeedBlueCenterShoot4;
 import frc.robot.autos.Backfeedexperimental;
 import frc.robot.autos.BlueBackUp;
 import frc.robot.autos.BlueCenterDelayedBackUp;
@@ -101,7 +102,7 @@ public class RobotContainer {
  
     // Intake and Shoot
     Player1.leftTrigger().whileTrue(new SequentialCommandGroup(
-    new AutoArm(arm, 66),                                                                                                             
+    new AutoArm(arm, 61),                                                                                                             
     new ManualIntake(intake, arm, 140)
     ));
     Player1.y().whileTrue(new ManualIntake(intake, arm, -45)); //Rotations per second
@@ -120,7 +121,7 @@ public class RobotContainer {
     Player1.rightBumper().whileTrue(new AutoArm(arm, Constants.ShootAngle[arm.ConvertedDistance()]));
 
     // Arm
-    Player1.a().onTrue(new AutoArm(arm, 66));
+    Player1.a().onTrue(new AutoArm(arm, 61));
     Player1.b().whileTrue(new ManualArm(arm, 0));
     Player1.x().onTrue(new AutoArm(arm, -50));
 
@@ -146,7 +147,7 @@ public class RobotContainer {
     AutoSelect.addOption("Red Center Shoot 4", new RedCenterShootMiddle4(drivetrain, this, arm, intake));
     
     AutoSelect.addOption("Blue LIMELIGHT Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
-    AutoSelect.addOption("Blue BACKFEED Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
+    AutoSelect.addOption("Blue BACKFEED Shoot 4", new BackfeedBlueCenterShoot4(drivetrain, null, arm, intake));
      AutoSelect.addOption("test auto", new Backfeedexperimental(drivetrain, null, arm, intake));
  
     SmartDashboard.putData("Select Auto", AutoSelect);

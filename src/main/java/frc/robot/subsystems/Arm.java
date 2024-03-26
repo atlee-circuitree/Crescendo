@@ -67,23 +67,22 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
  
-    /*
-    if (AngleEncoder.getAbsolutePosition() < .2) {
+    
+    if (AngleEncoder.getAbsolutePosition() > .8) {
 
-      CurrentTicks = AngleEncoder.getAbsolutePosition() + 1;
+      CurrentTicks = AngleEncoder.getAbsolutePosition() - 1;
       
     } else {
 
       CurrentTicks = AngleEncoder.getAbsolutePosition();
 
     }
-    */
-
-    CurrentTicks = AngleEncoder.getAbsolutePosition();
  
-    CurrentAngle = -CurrentTicks / (.072 / 28) + 68;
+    CurrentAngle = -CurrentTicks / (.072 / 28) + 60;
  
     SmartDashboard.putNumber("Angle Encoder Degrees", CurrentAngle);
+
+    SmartDashboard.putNumber("Angle Encoder Raw", CurrentTicks);
 
     distance = (int) Math.round(getDistanceToAprilTag() * 10);
  

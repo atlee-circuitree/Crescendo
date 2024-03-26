@@ -5,6 +5,7 @@
 package frc.robot.autos;
 
 import com.choreo.lib.Choreo;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
