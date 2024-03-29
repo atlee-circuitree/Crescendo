@@ -79,6 +79,20 @@ public class BlueTemplate extends SequentialCommandGroup {
     ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0);
 
   }
+
+  private ParallelRaceGroup DriveToSpeaker() {
+
+    return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
+
+      new ManualIntake(new Intake(), new Arm(), 120), // Enables intake
+      m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
+        .withVelocityX(1.8)  
+        .withVelocityY(-LimelightHelpers.getTX("limelight-sh") / 30) 
+        .withRotationalRate(-LimelightHelpers.getTX("limelight-sh") / 40))
+
+    ).until(() -> -LimelightHelpers.getTA("limelight-sh") / 30 > 30);
+
+  }
  
   private Command InitialPose(String Trajectory, boolean IsRed) {
 

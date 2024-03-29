@@ -84,6 +84,8 @@ public class Arm extends SubsystemBase {
 
     SmartDashboard.putNumber("Angle Encoder Raw", CurrentTicks);
 
+    SmartDashboard.putNumber("Shooter Limelight Area", LimelightHelpers.getTA("limelight-sh"));
+
     distance = (int) Math.round(getDistanceToAprilTag() * 10);
  
   }
