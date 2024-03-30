@@ -5,7 +5,6 @@
 package frc.robot.autos;
 
 import com.choreo.lib.Choreo;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -26,15 +25,19 @@ import frc.robot.subsystems.LimelightHelpers;
 public class BlueTemplate extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
+  Arm m_Arm;
+  Intake m_Intake;
   RobotContainer m_RobotContainer;
 
   public BlueTemplate(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
+    m_Arm = Arm;
+    m_Intake = Intake;
     m_RobotContainer = RobotContainer;
 
     addCommands(
-      
+
 
     );
 
@@ -66,11 +69,11 @@ public class BlueTemplate extends SequentialCommandGroup {
 
   }
 
-  private ParallelRaceGroup DriveToNote() {
+  private ParallelRaceGroup DriveToNote(Arm Arm, Intake Intake) {
 
     return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
 
-      new ManualIntake(new Intake(), new Arm(), 120), // Enables intake
+      new ManualIntake(Intake, Arm, 120), // Enables intake
       m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
         .withVelocityX(1.8)  
         .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
@@ -80,19 +83,33 @@ public class BlueTemplate extends SequentialCommandGroup {
 
   }
 
-  private ParallelRaceGroup DriveToSpeaker() {
+  private ParallelRaceGroup DriveToSpeaker(Arm Arm, Intake Intake) {
 
     return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
 
-      new ManualIntake(new Intake(), new Arm(), 120), // Enables intake
+      new ManualIntake(Intake, Arm, 120), // Enables intake
       m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
         .withVelocityX(1.8)  
-        .withVelocityY(-LimelightHelpers.getTX("limelight-sh") / 30) 
+        .withVelocityY(-LimelightHelpers.getTX("limelight-sh") / 8) 
         .withRotationalRate(-LimelightHelpers.getTX("limelight-sh") / 40))
 
-    ).until(() -> -LimelightHelpers.getTA("limelight-sh") / 30 > 30);
+    ).until(() -> LimelightHelpers.getTA("limelight-sh") >= .8);
 
   }
+
+  private Command KillDrive(Arm Arm, Intake Intake) {
+
+    return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
+
+      m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
+        .withVelocityX(0)  
+        .withVelocityY(-LimelightHelpers.getTX("limelight-sh") / 20) 
+        .withRotationalRate(-LimelightHelpers.getTX("limelight-sh") / 40))
+
+    ).withTimeout(.05);
+
+  }
+ 
  
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
@@ -101,3 +118,4 @@ public class BlueTemplate extends SequentialCommandGroup {
   }
 
 }
+

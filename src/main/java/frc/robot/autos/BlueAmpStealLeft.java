@@ -28,6 +28,7 @@ public class BlueAmpStealLeft extends SequentialCommandGroup {
 
     addCommands(
 
+      /* 
       new ManualShoot(Arm, 70),
       InitialPose("CloseLeft", false),
       new AlwaysRunningIntake(Intake, Arm, 30).withTimeout(.1),
@@ -35,6 +36,7 @@ public class BlueAmpStealLeft extends SequentialCommandGroup {
       new ManualShoot(Arm, 70),
       ChoreoPathing("AmpSteal2", false),
       new ManualShoot(Arm, 70)
+      */
       
     );
 

@@ -28,9 +28,9 @@ public class Intake extends SubsystemBase {
   public Intake() {
  
     FrontIntakeMotor = new TalonFX(Constants.CAN_IDs.FrontIntakeID, "FRC 1599");
-    FrontFlyMotor.setInverted(true);
     RearFlyMotor = new TalonFX(Constants.CAN_IDs.RearFlyID, "FRC 1599");
     FrontFlyMotor = new TalonFX(Constants.CAN_IDs.FrontFlyID, "FRC 1599");
+     FrontFlyMotor.setInverted(true);
 
     VelocityVolts = new VelocityVoltage(0);
 

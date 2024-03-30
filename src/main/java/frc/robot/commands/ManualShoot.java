@@ -72,7 +72,7 @@ public class ManualShoot extends Command {
   @Override
   public boolean isFinished() {
 
-    if (m_spinup.get() > .9) {
+    if (m_spinup.get() > .8) {
 
       return true;
 

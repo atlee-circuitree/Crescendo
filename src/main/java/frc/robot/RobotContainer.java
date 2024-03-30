@@ -7,6 +7,7 @@ package frc.robot;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.BackFeedTest;
 import frc.robot.autos.BackfeedBlueCenterShoot4;
 import frc.robot.autos.Backfeedexperimental;
+import frc.robot.autos.BlueAmpStealLeft;
 import frc.robot.autos.BlueBackUp;
 import frc.robot.autos.BlueCenterDelayedBackUp;
 import frc.robot.autos.BlueCenterShoot1;
@@ -27,9 +29,12 @@ import frc.robot.autos.BlueCenterShootMiddle4;
 import frc.robot.autos.BlueCenterStealMiddle;
 import frc.robot.autos.BlueCloseLeftStealLeft;
 import frc.robot.autos.BlueCloseLeftStealLeftLineupLeft;
+import frc.robot.autos.BlueFourRingLimelight;
 import frc.robot.autos.BlueLeftJustMove;
+import frc.robot.autos.BlueMiddleSteal;
 import frc.robot.autos.BlueRightJustMove;
 import frc.robot.autos.BlueRightMoveAndSteal;
+import frc.robot.autos.DriveToSpeaker;
 import frc.robot.autos.ExampleAuto;
 import frc.robot.autos.LimelightBlueCenterShoot4;
 import frc.robot.autos.LimelightFeedTest;
@@ -41,6 +46,8 @@ import frc.robot.autos.RedCloseLeftStealLeft;
 import frc.robot.autos.RedCloseLeftStealLeftLineupLeft;
 import frc.robot.autos.RedLeftJustMove;
 import frc.robot.autos.RedRightJustMove;
+import frc.robot.autos.TestAmp;
+import frc.robot.autos.TestAuto;
 import frc.robot.commands.AutoArm;
 import frc.robot.commands.IntakeLights;
 import frc.robot.commands.ManualArm;
@@ -60,7 +67,7 @@ import frc.robot.subsystems.LimelightHelpers;
 public class RobotContainer {
  
   // Variables
-  private static final double MaxSpeed = 8; // 6 meters per second desired top speed
+  private static final double MaxSpeed = 6; // 6 meters per second desired top speed
   private static final double MaxAngularRate = 3 * Math.PI; // Half a rotation per second max angular velocity
   SendableChooser<Command> AutoSelect = new SendableChooser<Command>();
  
@@ -74,13 +81,14 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Hooks hooks = new Hooks();
   private final Lights lights = new Lights();
+  //private SlewRateLimiter driveLimiter = new SlewRateLimiter(.05);
 
   // Objects for Tele-op Drive
   public SwerveRequest.FieldCentric driveFieldCentric = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.03).withRotationalDeadband(MaxAngularRate * 0.05) // Small deadband
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric
   public SwerveRequest.RobotCentric driveRobotCentric = new SwerveRequest.RobotCentric()
-      .withDeadband(MaxSpeed * 0.03).withRotationalDeadband(MaxAngularRate * 0.05) // Small deadband
+      .withDeadband(MaxSpeed * 0.03).withRotationalDeadband(MaxAngularRate * 0.03) // Small deadband
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I DON'T want field-centric
   private final Telemetry logger = new Telemetry(MaxSpeed);
 
@@ -90,7 +98,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand( 
         drivetrain.applyRequest(() -> driveFieldCentric
         .withVelocityX(Player1.getLeftY() * MaxSpeed * 1)  
-        .withVelocityY(Player1.getLeftX()* MaxSpeed * 1) 
+        .withVelocityY(Player1.getLeftX() * MaxSpeed * 1)
         .withRotationalRate((-Player1.getRightX() * MaxAngularRate)) 
     ));
 
@@ -133,10 +141,10 @@ public class RobotContainer {
     Player2.y().whileTrue(new ManualHooks(hooks, -1));
     Player2.x().onTrue(new AutoArm(arm, -50));
 
-    Player2.leftBumper().whileTrue(new ManualLeftHook(hooks, -.80));
-    Player2.leftTrigger().whileTrue(new ManualLeftHook(hooks, .80));
-    Player2.rightBumper().whileTrue(new ManualRightHook(hooks, -.80));
-    Player2.rightTrigger().whileTrue(new ManualRightHook(hooks, .80));
+    Player2.leftBumper().whileTrue(new ManualRightHook(hooks, -.80));
+    Player2.leftTrigger().whileTrue(new ManualRightHook(hooks, .80));
+    Player2.rightBumper().whileTrue(new ManualLeftHook(hooks, -.80));
+    Player2.rightTrigger().whileTrue(new ManualLeftHook(hooks, .80));
  
     // Registers the Telemetry
     drivetrain.registerTelemetry(logger::telemeterize);
@@ -148,9 +156,15 @@ public class RobotContainer {
     
     AutoSelect.addOption("Blue LIMELIGHT Shoot 4", new LimelightBlueCenterShoot4(drivetrain, null, arm, intake));
     AutoSelect.addOption("Blue BACKFEED Shoot 4", new BackfeedBlueCenterShoot4(drivetrain, null, arm, intake));
-     AutoSelect.addOption("test auto", new Backfeedexperimental(drivetrain, null, arm, intake));
+    AutoSelect.addOption("Blue Amp Steal Left", new BlueAmpStealLeft(drivetrain, null, intake));
+    AutoSelect.addOption("!!!!", new Backfeedexperimental(drivetrain, null, arm, intake));
+    AutoSelect.addOption("Test the Amp", new TestAmp(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Blue Steal", new TestAuto(drivetrain, this, arm, intake));
+
+    AutoSelect.addOption("Speaker Test", new DriveToSpeaker(drivetrain, this, arm, intake));
+    AutoSelect.addOption("New Four Ring", new BlueFourRingLimelight(drivetrain, this, arm, intake));
  
-    SmartDashboard.putData("Select Auto", AutoSelect);
+    SmartDashboard.putData(AutoSelect);
 
   }
 
