@@ -39,7 +39,7 @@ public class TestAuto extends SequentialCommandGroup {
     addCommands(
 
       // Close Ring
-      InitialPose("LimJamesTestAuto1", false),
+      InitialPose("JamesTestAuto1", false),
       new ManualShoot(Arm, 120),
       ChoreoPathingWithIntake("JamesTestAuto1", false, m_Arm, m_Intake),
       new ManualShoot(Arm, 120),
@@ -47,7 +47,6 @@ public class TestAuto extends SequentialCommandGroup {
       ChoreoPathing("LimJamesTestAuto3", false),
       DriveToNote(m_Arm, m_Intake),
       ChoreoPathingWithIntake("LimJamesTestAuto4", false, m_Arm, m_Intake),
-      AdjustAngle(m_Arm, m_Intake),
       new ManualShoot(Arm, 150)
     
 

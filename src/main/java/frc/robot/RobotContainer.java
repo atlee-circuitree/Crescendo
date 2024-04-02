@@ -34,6 +34,9 @@ import frc.robot.autos.BlueLeftJustMove;
 import frc.robot.autos.BlueMiddleSteal;
 import frc.robot.autos.BlueRightJustMove;
 import frc.robot.autos.BlueRightMoveAndSteal;
+import frc.robot.autos.CorysTestAuto;
+import frc.robot.autos.CorysTestAuto2;
+import frc.robot.autos.CorysTestAuto3;
 import frc.robot.autos.DriveToSpeaker;
 import frc.robot.autos.ExampleAuto;
 import frc.robot.autos.LimelightBlueCenterShoot4;
@@ -46,8 +49,10 @@ import frc.robot.autos.RedCloseLeftStealLeft;
 import frc.robot.autos.RedCloseLeftStealLeftLineupLeft;
 import frc.robot.autos.RedLeftJustMove;
 import frc.robot.autos.RedRightJustMove;
+import frc.robot.autos.SourceLimelighTest;
 import frc.robot.autos.TestAmp;
 import frc.robot.autos.TestAuto;
+import frc.robot.autos.TestSource;
 import frc.robot.commands.AutoArm;
 import frc.robot.commands.IntakeLights;
 import frc.robot.commands.ManualArm;
@@ -114,7 +119,7 @@ public class RobotContainer {
     new ManualIntake(intake, arm, 140)
     ));
     Player1.y().whileTrue(new ManualIntake(intake, arm, -45)); //Rotations per second
-    Player1.rightTrigger().whileTrue(new ManualShoot(arm, 350));//120 velocity
+    Player1.rightTrigger().whileTrue(new ManualShoot(arm, 500));//120 velocity
 
     // Limelight Intake
     Player1.leftBumper().onTrue( 
@@ -133,8 +138,8 @@ public class RobotContainer {
     Player1.b().whileTrue(new ManualArm(arm, 0));
     Player1.x().onTrue(new AutoArm(arm, -50));
 
-    Player1.povDown().whileTrue(new ManualArm(arm, .05));
-    Player1.povUp().whileTrue(new ManualArm(arm, -.05));
+    Player1.povDown().whileTrue(new ManualArm(arm, .25));
+    Player1.povUp().whileTrue(new ManualArm(arm, -.25));
     
     // Hooks
     Player2.a().whileTrue(new ManualHooks(hooks, 1));
@@ -158,11 +163,15 @@ public class RobotContainer {
     AutoSelect.addOption("Blue BACKFEED Shoot 4", new BackfeedBlueCenterShoot4(drivetrain, null, arm, intake));
     AutoSelect.addOption("Blue Amp Steal Left", new BlueAmpStealLeft(drivetrain, null, intake));
     AutoSelect.addOption("!!!!", new Backfeedexperimental(drivetrain, null, arm, intake));
-    AutoSelect.addOption("Test the Amp", new TestAmp(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Amp Steal", new TestAmp(drivetrain, this, arm, intake));
     AutoSelect.addOption("Blue Steal", new TestAuto(drivetrain, this, arm, intake));
 
-    AutoSelect.addOption("Speaker Test", new DriveToSpeaker(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Speaker Steal", new DriveToSpeaker(drivetrain, this, arm, intake));
     AutoSelect.addOption("New Four Ring", new BlueFourRingLimelight(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Source Limelight test", new TestSource(drivetrain, this, arm, intake));
+   // AutoSelect.addOption("Cory test auto", new CorysTestAuto(drivetrain,this,arm,intake));
+    //AutoSelect.addOption("Cory test auto 2", new CorysTestAuto2(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Blue Center shoot Steal", new CorysTestAuto3(drivetrain,this,arm,intake));
  
     SmartDashboard.putData(AutoSelect);
 

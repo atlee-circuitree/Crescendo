@@ -32,7 +32,7 @@ public class Intake extends SubsystemBase {
     FrontFlyMotor = new TalonFX(Constants.CAN_IDs.FrontFlyID, "FRC 1599");
      FrontFlyMotor.setInverted(true);
 
-    VelocityVolts = new VelocityVoltage(0);
+    VelocityVolts = new VelocityVoltage(100);
 
     input = new DigitalInput(0);
 

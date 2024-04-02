@@ -8,7 +8,6 @@ import com.choreo.lib.Choreo;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
@@ -24,14 +23,14 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class TestAmp extends SequentialCommandGroup {
+public class TestSource extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   Arm m_Arm;
   Intake m_Intake;
   RobotContainer m_RobotContainer;
 
-  public TestAmp(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public TestSource(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_Arm = Arm;
@@ -41,14 +40,21 @@ public class TestAmp extends SequentialCommandGroup {
     addCommands(
 
       // Close Ring
-      InitialPose("AmpTestAuto1", false),
-      ChoreoPathing("AmpTestAuto1", false),
       new ManualShoot(m_Arm, 120),
-      ChoreoPathingWithIntakeAndArm("AmpTestAuto2", false, m_Arm, m_Intake, 60),
-      new AutoArm(m_Arm, -50),
+      InitialPose("SourceLimelight1", false),
+      ChoreoPathingWithIntake("SourceLimelight1", false, m_Arm, m_Intake),
+      DriveToNote(m_Arm, m_Intake),
+      ChoreoPathingWithIntake("SourceLimelight2", false, m_Arm, m_Intake),
       new ManualShoot(m_Arm, 120),
-      ChoreoPathingWithIntakeAndArm("AmpTestAuto3", false, m_Arm, m_Intake, 60)
-    
+      ChoreoPathingWithIntake("SourceLimelight3", false, m_Arm, m_Intake),
+      DriveToNote(m_Arm, m_Intake),
+      ChoreoPathingWithIntake("SourceLimelight4", false, m_Arm, m_Intake),
+      new ManualShoot(m_Arm, 120),
+      ChoreoPathingWithIntake("SourceLimelight5",false, m_Arm, m_Intake),
+      DriveToNote(m_Arm, m_Intake),
+      ChoreoPathingWithIntake("SourceLimelight6",false, m_Arm, m_Intake),
+      new ManualShoot(m_Arm, 120)
+
 
 
       /*
@@ -104,17 +110,15 @@ public class TestAmp extends SequentialCommandGroup {
 
   private ParallelRaceGroup DriveToNote(Arm Arm, Intake Intake) {
 
-    final double MinTime = DriverStation.getMatchTime();
-
     return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
 
       new ManualIntake(Intake, Arm, 120), // Enables intake
-       m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
+      m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
         .withVelocityX(1.8)  
         .withVelocityY(-LimelightHelpers.getTX("limelight-ri") / 30) 
         .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 40))
 
-    ).until(() -> LimelightHelpers.getTX("limelight-ri") == 0 && DriverStation.getMatchTime() > MinTime + 1);
+    ).until(() -> -LimelightHelpers.getTX("limelight-ri") / 30 == 0);
 
   }
 

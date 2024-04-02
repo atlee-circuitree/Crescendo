@@ -39,7 +39,7 @@ public class ManualIntake extends Command {
 
     if (m_velocity > 0) {
 
-      m_arm.RunBottom(.1);
+      m_arm.RunBottom(.2);
 
     } else {
 

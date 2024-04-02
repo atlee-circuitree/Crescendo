@@ -42,7 +42,7 @@ public class Arm extends SubsystemBase {
     TopShootingMotor.setNeutralMode(NeutralModeValue.Coast);
     CentralShootingMotor.setNeutralMode(NeutralModeValue.Coast);
 
-    VelocityVolts = new VelocityVoltage(0);
+    VelocityVolts = new VelocityVoltage(100);
 
     var VelocityConfig = new Slot0Configs();
     VelocityConfig.kV = 0.12;
@@ -85,6 +85,8 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("Angle Encoder Raw", CurrentTicks);
 
     SmartDashboard.putNumber("Shooter Limelight Area", LimelightHelpers.getTA("limelight-sh"));
+
+    SmartDashboard.putNumber("Shooter Velocity", TopShootingMotor.getVelocity().getValueAsDouble());
 
     distance = (int) Math.round(getDistanceToAprilTag() * 10);
  
