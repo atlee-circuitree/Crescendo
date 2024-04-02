@@ -122,7 +122,7 @@ public class RobotContainer {
     Player1.rightTrigger().whileTrue(new ManualShoot(arm, 500));//120 velocity
 
     // Limelight Intake
-    Player1.leftBumper().onTrue( 
+    Player1.leftBumper().whileTrue( 
         new ParallelCommandGroup(
         drivetrain.applyRequest(() -> driveRobotCentric
         .withVelocityX(2)  
