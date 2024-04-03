@@ -41,14 +41,17 @@ import frc.robot.autos.DriveToSpeaker;
 import frc.robot.autos.ExampleAuto;
 import frc.robot.autos.LimelightBlueCenterShoot4;
 import frc.robot.autos.LimelightFeedTest;
+import frc.robot.autos.RedAmp;
 import frc.robot.autos.RedCenterShoot1;
 import frc.robot.autos.RedCenterShootMiddle4;
 import frc.robot.autos.RedCenterStealMiddle;
 import frc.robot.autos.RedCloseLeft;
 import frc.robot.autos.RedCloseLeftStealLeft;
 import frc.robot.autos.RedCloseLeftStealLeftLineupLeft;
+import frc.robot.autos.RedCorysTestAuto3;
 import frc.robot.autos.RedLeftJustMove;
 import frc.robot.autos.RedRightJustMove;
+import frc.robot.autos.RedSource;
 import frc.robot.autos.SourceLimelighTest;
 import frc.robot.autos.TestAmp;
 import frc.robot.autos.TestAuto;
@@ -81,7 +84,7 @@ public class RobotContainer {
   private final CommandXboxController Player2 = new CommandXboxController(1);
  
   // Subsystems
-  public final Drivetrain drivetrain = TunerConstants.DriveTrain;  
+  public final Drivetrain drivetrain = TunerConstants.Drivetrain;  
   private final Arm arm = new Arm();
   private final Intake intake = new Intake();
   private final Hooks hooks = new Hooks();
@@ -163,15 +166,18 @@ public class RobotContainer {
     AutoSelect.addOption("Blue BACKFEED Shoot 4", new BackfeedBlueCenterShoot4(drivetrain, null, arm, intake));
     AutoSelect.addOption("Blue Amp Steal Left", new BlueAmpStealLeft(drivetrain, null, intake));
     AutoSelect.addOption("!!!!", new Backfeedexperimental(drivetrain, null, arm, intake));
-    AutoSelect.addOption("Amp Steal", new TestAmp(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Blue Amp Steal", new TestAmp(drivetrain, this, arm, intake));
     AutoSelect.addOption("Blue Steal", new TestAuto(drivetrain, this, arm, intake));
 
     AutoSelect.addOption("Speaker Steal", new DriveToSpeaker(drivetrain, this, arm, intake));
     AutoSelect.addOption("New Four Ring", new BlueFourRingLimelight(drivetrain, this, arm, intake));
-    AutoSelect.addOption("Source Limelight test", new TestSource(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Blue Source", new TestSource(drivetrain, this, arm, intake));
    // AutoSelect.addOption("Cory test auto", new CorysTestAuto(drivetrain,this,arm,intake));
     //AutoSelect.addOption("Cory test auto 2", new CorysTestAuto2(drivetrain, this, arm, intake));
     AutoSelect.addOption("Blue Center shoot Steal", new CorysTestAuto3(drivetrain,this,arm,intake));
+    AutoSelect.addOption("Red Source Steal", new RedSource(drivetrain,this,arm,intake));
+    AutoSelect.addOption("Red Amp", new RedAmp(drivetrain,this,arm,intake));
+    AutoSelect.addOption("Red Center Shoot Steal", new RedCorysTestAuto3(drivetrain, this, arm, intake));
  
     SmartDashboard.putData(AutoSelect);
 
