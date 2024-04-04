@@ -32,12 +32,14 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
             startSimThread();
         }
     }
+    
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
         if (Utils.isSimulation()) {
             startSimThread();
         }
     }
+    
 
     @Override
     public void periodic() {
