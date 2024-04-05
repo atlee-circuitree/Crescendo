@@ -42,10 +42,10 @@ public class TestSource extends SequentialCommandGroup {
       // Close Ring
       new ManualShoot(m_Arm, 120),
       InitialPose("SourceLimelight1", false),
-      ChoreoPathingWithIntake("SourceLimelight1", false, m_Arm, m_Intake),
-      DriveToNote(m_Arm, m_Intake),
-      ChoreoPathingWithIntake("SourceLimelight2", false, m_Arm, m_Intake),
-      new ManualShoot(m_Arm, 120),
+    //  ChoreoPathingWithIntake("SourceLimelight1", false, m_Arm, m_Intake),
+      //DriveToNote(m_Arm, m_Intake),
+      //ChoreoPathingWithIntake("SourceLimelight2", false, m_Arm, m_Intake),
+      //new ManualShoot(m_Arm, 120),
       ChoreoPathingWithIntake("SourceLimelight3", false, m_Arm, m_Intake),
       DriveToNote(m_Arm, m_Intake),
       ChoreoPathingWithIntake("SourceLimelight4", false, m_Arm, m_Intake),
@@ -85,9 +85,9 @@ public class TestSource extends SequentialCommandGroup {
 
   }
 
-  private ParallelCommandGroup ChoreoPathingWithIntake(String Trajectory, boolean IsRed, Arm Arm, Intake Intake) {
+  private ParallelRaceGroup ChoreoPathingWithIntake(String Trajectory, boolean IsRed, Arm Arm, Intake Intake) {
 
-    return new ParallelCommandGroup(
+    return new ParallelRaceGroup(
       
       ChoreoPathing(Trajectory, IsRed),
       new ManualIntake(Intake, Arm, 120)

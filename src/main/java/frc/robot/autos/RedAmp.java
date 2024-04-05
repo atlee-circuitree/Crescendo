@@ -42,14 +42,16 @@ public class RedAmp extends SequentialCommandGroup {
 
     addCommands(
 
-      // Close Ring
+      // Close Ringq
       InitialPose("AmpTestAuto1", true),
       ChoreoPathing("AmpTestAuto1", true),
       new ManualShoot(m_Arm, 120),
+  
       ChoreoPathingWithIntakeAndArm("AmpTestAuto2", true, m_Arm, m_Intake, 60),
       new AutoArm(m_Arm, -50),
       new ManualShoot(m_Arm, 120),
       ChoreoPathingWithIntakeAndArm("AmpTestAuto3", true, m_Arm, m_Intake, 60)
+      
     
 
 
@@ -81,9 +83,9 @@ public class RedAmp extends SequentialCommandGroup {
 
   }
 
-  private ParallelCommandGroup ChoreoPathingWithIntake(String Trajectory, boolean IsRed, Arm Arm, Intake Intake) {
+  private ParallelRaceGroup ChoreoPathingWithIntake(String Trajectory, boolean IsRed, Arm Arm, Intake Intake) {
 
-    return new ParallelCommandGroup(
+    return new ParallelRaceGroup(
       
       ChoreoPathing(Trajectory, IsRed),
       new ManualIntake(Intake, Arm, 120)
@@ -92,13 +94,14 @@ public class RedAmp extends SequentialCommandGroup {
 
   }
 
-   private ParallelCommandGroup ChoreoPathingWithIntakeAndArm(String Trajectory, boolean IsRed, Arm Arm, Intake Intake, double Angle) {
+   private ParallelRaceGroup ChoreoPathingWithIntakeAndArm(String Trajectory, boolean IsRed, Arm Arm, Intake Intake, double Angle) {
 
-    return new ParallelCommandGroup(
+    return new ParallelRaceGroup(
       
       ChoreoPathing(Trajectory, IsRed),
+      new ParallelCommandGroup(
       new AutoArm(m_Arm, Angle),
-      new ManualIntake(Intake, Arm, 120)
+      new ManualIntake(Intake, Arm, 120))
       
     );
 
@@ -134,7 +137,7 @@ public class RedAmp extends SequentialCommandGroup {
 
   }
 
-  private Command KillDrive(Arm Arm, Intake Intake) {
+ /*  private Command KillDrive(Arm Arm, Intake Intake) {
 
     return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
 
@@ -146,8 +149,8 @@ public class RedAmp extends SequentialCommandGroup {
     ).withTimeout(.05);
 
   }
-
-  private Command AdjustAngle(Arm Arm, Intake Intake) {
+*/
+  /*private Command AdjustAngle(Arm Arm, Intake Intake) {
 
     return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
 
@@ -159,7 +162,7 @@ public class RedAmp extends SequentialCommandGroup {
     ).withTimeout(1);
 
   }
- 
+ */
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
   return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(new Pose2d(

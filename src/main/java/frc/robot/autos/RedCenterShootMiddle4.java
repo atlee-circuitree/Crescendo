@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -41,41 +42,41 @@ public class RedCenterShootMiddle4 extends SequentialCommandGroup {
       InitialPose("CenterShoot", true),
 
       // Second Shot
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot", true) 
-      ).withTimeout(3.4),
-      new ManualIntake(Intake, Arm, 120).withTimeout(3),
+      ),
+      //new ManualIntake(Intake, Arm, 120).withTimeout(3),
       new ManualShoot(Arm, 120),
 
       // Third Shot
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot2", true)
       ),
-      new ManualIntake(Intake, Arm, 120).withTimeout(3),
-      new ManualShoot(Arm, 120).withTimeout(3.8),
+      //new ManualIntake(Intake, Arm, 120).withTimeout(3),
+      new ManualShoot(Arm, 120).withTimeout(1.3),
 
       // Fourth Shot
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot3", true)
-      ).withTimeout(1.3),
+      ),
 
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric
         .withVelocityX(1)  
         .withVelocityY(0) 
         .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))
-      ).withTimeout(1.1),
+      ),
          
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot4", true)
-      ).withTimeout(2),
+      ),
 
-      new ManualIntake(Intake, Arm, 120),
+      //new ManualIntake(Intake, Arm, 120),
       new ManualShoot(Arm, 120)
       
     );

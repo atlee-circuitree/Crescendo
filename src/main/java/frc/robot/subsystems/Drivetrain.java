@@ -57,7 +57,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private void startSimThread() {
         m_lastSimTime = Utils.getCurrentTimeSeconds();
 
-        /* Run simulation at a faster rate so PID gains behave more reasonably */
+        /* Run simulation at a faster rate so PID behaves more reasonably */
         m_simNotifier = new Notifier(() -> {
             final double currentTime = Utils.getCurrentTimeSeconds();
             double deltaTime = currentTime - m_lastSimTime;

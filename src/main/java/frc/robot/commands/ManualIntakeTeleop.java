@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
  
-public class ManualIntake extends Command {
+public class ManualIntakeTeleop extends Command {
   /** Creates a new RunIntake. */
 
   Intake m_intake;
   Arm m_arm;
   double m_velocity;
 
-  public ManualIntake(Intake Intake, Arm Arm, double Velocity) {
+  public ManualIntakeTeleop(Intake Intake, Arm Arm, double Velocity) {
     
     m_intake = Intake;
     m_arm = Arm;
@@ -63,11 +63,15 @@ public class ManualIntake extends Command {
   @Override
   public boolean isFinished() {
 
-    
+    if (m_intake.input.get() == false && m_velocity > 0) {
+
+      return true;
+
+    } else {
 
       return false;
 
     }
 
   }
-
+}

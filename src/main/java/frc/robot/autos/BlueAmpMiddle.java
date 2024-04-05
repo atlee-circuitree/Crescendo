@@ -24,14 +24,14 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class TestAmp extends SequentialCommandGroup {
+public class BlueAmpMiddle extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   Arm m_Arm;
   Intake m_Intake;
   RobotContainer m_RobotContainer;
 
-  public TestAmp(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public BlueAmpMiddle(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_Arm = Arm;
@@ -44,13 +44,11 @@ public class TestAmp extends SequentialCommandGroup {
       InitialPose("AmpTestAuto1", false),
       ChoreoPathing("AmpTestAuto1", false),
       new ManualShoot(m_Arm, 120),
-      ChoreoPathingWithIntakeAndArm("AmpTestAuto2", false, m_Arm, m_Intake, 60),
-      new AutoArm(m_Arm, -50),
-      new ManualShoot(m_Arm, 120),
       ChoreoPathingWithIntakeAndArm("AmpTestAuto3", false, m_Arm, m_Intake, 60),
       new AutoArm(m_Arm, -50),
       new ManualShoot(m_Arm, 120)
-
+    //  ChoreoPathingWithIntakeAndArm("AmpTestAuto3", false, m_Arm, m_Intake, 60)
+    
 
 
       /*
@@ -92,9 +90,9 @@ public class TestAmp extends SequentialCommandGroup {
 
   }
 
-   private ParallelRaceGroup ChoreoPathingWithIntakeAndArm(String Trajectory, boolean IsRed, Arm Arm, Intake Intake, double Angle) {
+   private ParallelCommandGroup ChoreoPathingWithIntakeAndArm(String Trajectory, boolean IsRed, Arm Arm, Intake Intake, double Angle) {
 
-    return new ParallelRaceGroup(
+    return new ParallelCommandGroup(
       
       ChoreoPathing(Trajectory, IsRed),
       new AutoArm(m_Arm, Angle),

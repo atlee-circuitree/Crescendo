@@ -7,6 +7,8 @@ package frc.robot.autos;
 import com.choreo.lib.Choreo;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,14 +26,14 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class TestAmp extends SequentialCommandGroup {
+public class RedAmpMiddle extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   Arm m_Arm;
   Intake m_Intake;
   RobotContainer m_RobotContainer;
 
-  public TestAmp(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public RedAmpMiddle(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_Arm = Arm;
@@ -41,16 +43,14 @@ public class TestAmp extends SequentialCommandGroup {
     addCommands(
 
       // Close Ring
-      InitialPose("AmpTestAuto1", false),
-      ChoreoPathing("AmpTestAuto1", false),
+      InitialPose("AmpTestAuto1", true),
+      ChoreoPathing("AmpTestAuto1", true),
       new ManualShoot(m_Arm, 120),
-      ChoreoPathingWithIntakeAndArm("AmpTestAuto2", false, m_Arm, m_Intake, 60),
-      new AutoArm(m_Arm, -50),
-      new ManualShoot(m_Arm, 120),
-      ChoreoPathingWithIntakeAndArm("AmpTestAuto3", false, m_Arm, m_Intake, 60),
+      ChoreoPathingWithIntakeAndArm("AmpTestAuto3", true, m_Arm, m_Intake, 60),
       new AutoArm(m_Arm, -50),
       new ManualShoot(m_Arm, 120)
-
+     // ChoreoPathingWithIntakeAndArm("AmpTestAuto3", true, m_Arm, m_Intake, 60)
+    
 
 
       /*
@@ -92,9 +92,9 @@ public class TestAmp extends SequentialCommandGroup {
 
   }
 
-   private ParallelRaceGroup ChoreoPathingWithIntakeAndArm(String Trajectory, boolean IsRed, Arm Arm, Intake Intake, double Angle) {
+   private ParallelCommandGroup ChoreoPathingWithIntakeAndArm(String Trajectory, boolean IsRed, Arm Arm, Intake Intake, double Angle) {
 
-    return new ParallelRaceGroup(
+    return new ParallelCommandGroup(
       
       ChoreoPathing(Trajectory, IsRed),
       new AutoArm(m_Arm, Angle),
@@ -134,7 +134,7 @@ public class TestAmp extends SequentialCommandGroup {
 
   }
 
-  private Command KillDrive(Arm Arm, Intake Intake) {
+ /*  private Command KillDrive(Arm Arm, Intake Intake) {
 
     return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
 
@@ -146,23 +146,27 @@ public class TestAmp extends SequentialCommandGroup {
     ).withTimeout(.05);
 
   }
+*/
+  /*private Command AdjustAngle(Arm Arm, Intake Intake) {
 
-  //private Command AdjustAngle(Arm Arm, Intake Intake) {
+    return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
 
-    //return new ParallelCommandGroup( // Drive toward the center close note until the limelight loses detection
+      m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
+        .withVelocityX(0)  
+        .withVelocityY(0) 
+        .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))
 
-      //m_drivetrain.applyRequest(() -> m_RobotContainer.driveRobotCentric // Robot centric drive command that adjusts off of the lightlight
-        //.withVelocityX(0)  
-        //.withVelocityY(0) 
-        //.withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))
+    ).withTimeout(1);
 
-   // ).withTimeout(1);
-
-  //}
- 
+  }
+ */
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
-    return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
+  return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(new Pose2d(
+      16.565 - Choreo.getTrajectory(Trajectory).getInitialPose().getX(),
+      Choreo.getTrajectory(Trajectory).getInitialPose().getY(),
+     // Choreo.getTrajectory(Trajectory).getInitialPose().getRotation().minus(new Rotation2d(3.1415)))));
+      new Rotation2d(-Math.PI).minus(Choreo.getTrajectory(Trajectory).getInitialPose().getRotation()))));
 
   }
 

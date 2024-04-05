@@ -10,6 +10,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -39,26 +40,26 @@ public class BlueCenterShootMiddle4 extends SequentialCommandGroup {
       InitialPose("CenterShoot", false),
 
       // Second Shot
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot", false) 
-      ).withTimeout(3.4),
-      new ManualIntake(Intake, Arm, 120).withTimeout(3),
+      ),
+      //new ManualIntake(Intake, Arm, 120).withTimeout(0),
       new ManualShoot(Arm, 120),
       
       // Third Shot
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot2", false)
       ),
-      new ManualIntake(Intake, Arm, 120).withTimeout(3),
-      new ManualShoot(Arm, 120).withTimeout(3.8),
+      //new ManualIntake(Intake, Arm, 120).withTimeout(3),
+      new ManualShoot(Arm, 120),
 
       // Fourth Shot
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot3", false)
-      ).withTimeout(1.3),
+      ),
 
       new ParallelCommandGroup(
       new ManualIntake(Intake, Arm, 120),
@@ -68,10 +69,10 @@ public class BlueCenterShootMiddle4 extends SequentialCommandGroup {
         .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))
       ).withTimeout(1.1),
          
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
       ChoreoPathing("CenterShoot4", false)
-      ).withTimeout(2),
+      ),
 
       new ManualIntake(Intake, Arm, 120),
       new ManualShoot(Arm, 120)
