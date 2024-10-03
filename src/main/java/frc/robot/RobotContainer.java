@@ -187,7 +187,7 @@ public class RobotContainer {
     //AutoSelect.addOption("Red Center Shoot Steal", new RedCorysTestAuto3(drivetrain, this, arm, intake));
     //AutoSelect.addOption("Red Amp Middle",new RedAmpMiddle(drivetrain, this, arm, intake));
     //AutoSelect.addOption("Blue Amp Middle", new BlueAmpMiddle(drivetrain, this, arm, intake));
-    AutoSelect.addOption("Red Amp Version 2", new RedAmpVersion2(drivetrain, this, arm, intake));
+    //AutoSelect.addOption("Red Amp Version 2", new RedAmpVersion2(drivetrain, this, arm, intake));
     SmartDashboard.putData(AutoSelect);
 
   }
