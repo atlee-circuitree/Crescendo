@@ -23,6 +23,7 @@ import frc.robot.autos.Backfeedexperimental;
 import frc.robot.autos.BlueAmp;
 import frc.robot.autos.BlueAmpMiddle;
 import frc.robot.autos.BlueAmpStealLeft;
+import frc.robot.autos.BlueAntiFresta;
 import frc.robot.autos.BlueBackUp;
 import frc.robot.autos.BlueCenterDelayedBackUp;
 import frc.robot.autos.BlueCenterShoot1;
@@ -188,6 +189,7 @@ public class RobotContainer {
     //AutoSelect.addOption("Red Amp Middle",new RedAmpMiddle(drivetrain, this, arm, intake));
     //AutoSelect.addOption("Blue Amp Middle", new BlueAmpMiddle(drivetrain, this, arm, intake));
     AutoSelect.addOption("Red Amp Version 2", new RedAmpVersion2(drivetrain, this, arm, intake));
+    AutoSelect.addOption("Anti Fresta", new BlueAntiFresta(drivetrain,this,arm,intake));
     SmartDashboard.putData(AutoSelect);
 
   }
