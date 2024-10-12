@@ -37,6 +37,7 @@ import frc.robot.autos.BlueLeftJustMove;
 import frc.robot.autos.BlueMiddleSteal;
 import frc.robot.autos.BlueRightJustMove;
 import frc.robot.autos.BlueRightMoveAndSteal;
+import frc.robot.autos.BlueSourceSide;
 import frc.robot.autos.CorysTestAuto;
 import frc.robot.autos.CorysTestAuto2;
 import frc.robot.autos.CorysTestAuto3;
@@ -47,6 +48,7 @@ import frc.robot.autos.LimelightFeedTest;
 import frc.robot.autos.RedAmp;
 import frc.robot.autos.RedAmpMiddle;
 import frc.robot.autos.RedAmpVersion2;
+import frc.robot.autos.RedAntiFresta;
 import frc.robot.autos.RedCenterShoot1;
 import frc.robot.autos.RedCenterShootMiddle4;
 import frc.robot.autos.RedCenterStealMiddle;
@@ -57,6 +59,7 @@ import frc.robot.autos.RedCorysTestAuto3;
 import frc.robot.autos.RedLeftJustMove;
 import frc.robot.autos.RedRightJustMove;
 import frc.robot.autos.RedSource;
+import frc.robot.autos.RedSourceSide;
 import frc.robot.autos.SourceLimelighTest;
 import frc.robot.autos.TestAmp;
 import frc.robot.autos.TestAuto;
@@ -189,7 +192,10 @@ public class RobotContainer {
     //AutoSelect.addOption("Red Amp Middle",new RedAmpMiddle(drivetrain, this, arm, intake));
     //AutoSelect.addOption("Blue Amp Middle", new BlueAmpMiddle(drivetrain, this, arm, intake));
     AutoSelect.addOption("Red Amp Version 2", new RedAmpVersion2(drivetrain, this, arm, intake));
-    AutoSelect.addOption("Anti Fresta", new BlueAntiFresta(drivetrain,this,arm,intake));
+    AutoSelect.addOption("Blue Anti Fresta", new BlueAntiFresta(drivetrain,this,arm,intake));
+    AutoSelect.addOption("Red Anti Fresta", new RedAntiFresta(drivetrain,this,arm,intake));
+    AutoSelect.addOption("Blue New Source Side", new BlueSourceSide(drivetrain,this,arm,intake));
+    AutoSelect.addOption("Red New Source Side", new RedSourceSide(drivetrain,this,arm,intake));
     SmartDashboard.putData(AutoSelect);
 
   }
