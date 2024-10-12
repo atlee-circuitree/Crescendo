@@ -7,8 +7,6 @@ package frc.robot.autos;
 import com.choreo.lib.Choreo;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -25,12 +23,12 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class RedCenterShootMiddle4 extends SequentialCommandGroup {
+public class RedAntiFresta extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   RobotContainer m_RobotContainer;
 
-  public RedCenterShootMiddle4(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public RedAntiFresta(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_RobotContainer = RobotContainer;
@@ -39,45 +37,32 @@ public class RedCenterShootMiddle4 extends SequentialCommandGroup {
 
       // First Shot
       new ManualShoot(Arm, 120),
-      InitialPose("CenterShoot", true),
+      InitialPose("AntiFresta1", true),
 
       // Second Shot
       new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
-      ChoreoPathing("CenterShoot", true) 
+      ChoreoPathing("AntiFresta1", true) 
+      ),
+      //new ManualIntake(Intake, Arm, 120).withTimeout(0),
+      new ManualShoot(Arm, 120),
+      
+      // Third Shot
+      new ParallelRaceGroup(
+      new ManualIntake(Intake, Arm, 120),
+      ChoreoPathing("AntiFresta2", true)
       ),
       //new ManualIntake(Intake, Arm, 120).withTimeout(3),
       new ManualShoot(Arm, 120),
 
-      // Third Shot
-      new ParallelRaceGroup(
-      new ManualIntake(Intake, Arm, 120),
-      ChoreoPathing("CenterShoot2", true)
-      ),
-      //new ManualIntake(Intake, Arm, 120).withTimeout(3),
-      new ManualShoot(Arm, 120).withTimeout(1.3),
-
-      // Fourth Shot
-      new ParallelRaceGroup(
-      new ManualIntake(Intake, Arm, 120),
-      ChoreoPathing("CenterShoot3", true)
-      ),
 
       new ParallelRaceGroup(
-      new ManualIntake(Intake, Arm, 120),
-      m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric
-        .withVelocityX(1)  
-        .withVelocityY(0) 
-        .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))
-      ).withTimeout(1.1),
-         
-      new ParallelRaceGroup(
-      new ManualIntake(Intake, Arm, 120),
-      ChoreoPathing("CenterShoot4", true)
+        new ManualIntake(Intake, Arm, 120),
+        ChoreoPathing("AntiFresta3", true)
       ),
-
-      //new ManualIntake(Intake, Arm, 120),
       new ManualShoot(Arm, 120)
+
+     
       
     );
 
@@ -100,11 +85,7 @@ public class RedCenterShootMiddle4 extends SequentialCommandGroup {
 
   private Command InitialPose(String Trajectory, boolean IsRed) {
 
-    return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(new Pose2d(
-      16.565 - Choreo.getTrajectory(Trajectory).getInitialPose().getX(),
-      Choreo.getTrajectory(Trajectory).getInitialPose().getY(),
-     // Choreo.getTrajectory(Trajectory).getInitialPose().getRotation().minus(new Rotation2d(3.1415)))));
-      new Rotation2d(-Math.PI).minus(Choreo.getTrajectory(Trajectory).getInitialPose().getRotation()))));
+    return m_drivetrain.runOnce(() -> m_drivetrain.seedFieldRelative(Choreo.getTrajectory(Trajectory).getInitialPose()));
 
   }
 

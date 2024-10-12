@@ -50,7 +50,7 @@ public class BlueAntiFresta extends SequentialCommandGroup {
       // Third Shot
       new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
-      ChoreoPathing("AntiFrest2", false)
+      ChoreoPathing("AntiFresta2", false)
       ),
       //new ManualIntake(Intake, Arm, 120).withTimeout(3),
       new ManualShoot(Arm, 120),
