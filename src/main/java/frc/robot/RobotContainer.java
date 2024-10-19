@@ -35,6 +35,7 @@ import frc.robot.autos.BlueCloseLeftStealLeftLineupLeft;
 import frc.robot.autos.BlueFourRingLimelight;
 import frc.robot.autos.BlueLeftJustMove;
 import frc.robot.autos.BlueMiddleSteal;
+import frc.robot.autos.BlueNewCenterShoot;
 import frc.robot.autos.BlueRightJustMove;
 import frc.robot.autos.BlueRightMoveAndSteal;
 import frc.robot.autos.BlueSourceSide;
@@ -45,6 +46,7 @@ import frc.robot.autos.DriveToSpeaker;
 import frc.robot.autos.ExampleAuto;
 import frc.robot.autos.LimelightBlueCenterShoot4;
 import frc.robot.autos.LimelightFeedTest;
+import frc.robot.autos.NewBlueAmp;
 import frc.robot.autos.RedAmp;
 import frc.robot.autos.RedAmpMiddle;
 import frc.robot.autos.RedAmpVersion2;
@@ -196,6 +198,8 @@ public class RobotContainer {
     AutoSelect.addOption("Red Anti Fresta", new RedAntiFresta(drivetrain,this,arm,intake));
     AutoSelect.addOption("Blue New Source Side", new BlueSourceSide(drivetrain,this,arm,intake));
     AutoSelect.addOption("Red New Source Side", new RedSourceSide(drivetrain,this,arm,intake));
+    AutoSelect.addOption("New Blue Center Shoot", new BlueNewCenterShoot(drivetrain,this, arm, intake));
+    AutoSelect.addOption("New Blue Amp", new NewBlueAmp(drivetrain,this,arm,intake));
     SmartDashboard.putData(AutoSelect);
 
   }

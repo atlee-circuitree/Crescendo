@@ -37,7 +37,7 @@ public class TunerConstants {
 
     // The stator current at which the wheels start to slip;
     // This needs to be tuned to your individual robot
-    private static final double kSlipCurrentA = 40.0;
+    private static final double kSlipCurrentA = 60.0;
 
     // Theoretical free speed (m/s) at 12v applied output;
     // This needs to be tuned to your individual robot
@@ -51,9 +51,9 @@ public class TunerConstants {
     private static final double kSteerGearRatio = 12.8;
     private static final double kWheelRadiusInches = 2;
 
-    private static final boolean kSteerMotorReversed = true;//was false
-    private static final boolean kInvertLeftSide = true;
-    private static final boolean kInvertRightSide = false;//was true
+    private static final boolean kSteerMotorReversed = false;//was true
+    private static final boolean kInvertLeftSide = false;//was true
+    private static final boolean kInvertRightSide = true;//was false
 
     private static final String kCANbusName = "FRC 1599";
     private static final int kPigeonId = 41;
