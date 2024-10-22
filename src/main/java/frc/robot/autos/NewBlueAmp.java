@@ -52,7 +52,26 @@ public class NewBlueAmp extends SequentialCommandGroup {
       new ManualShoot(m_Arm, 120),
 
       ChoreoPathingWithIntakeAndArm("NewBlue3", false, m_Arm, m_Intake, 60),
-      new ManualShoot(m_Arm, 120)
+      
+
+      new ParallelCommandGroup(
+      new ManualIntake(Intake, Arm, 120),
+      m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric
+        .withVelocityX(1.5)  
+        .withVelocityY(0) 
+        .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14))
+        .withTimeout(1)
+      ),
+      
+      
+
+
+      
+      new ManualIntake(Intake, Arm, 120),
+      ChoreoPathingWithIntake("NewBlue4", false, Arm, Intake),
+      new ManualShoot(Arm, 120)
+      
+      
       
       
       
