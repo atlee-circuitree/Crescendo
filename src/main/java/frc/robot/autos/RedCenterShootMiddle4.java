@@ -63,7 +63,7 @@ public class RedCenterShootMiddle4 extends SequentialCommandGroup {
       ChoreoPathing("CenterShoot3", true)
       ),
 
-      new ParallelRaceGroup(
+      new ParallelCommandGroup(
       new ManualIntake(Intake, Arm, 120),
       m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric
         .withVelocityX(1)  
