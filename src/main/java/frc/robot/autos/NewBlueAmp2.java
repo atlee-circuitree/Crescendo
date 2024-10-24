@@ -26,14 +26,14 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimelightHelpers;
 
-public class NewBlueAmp extends SequentialCommandGroup {
+public class NewBlueAmp2 extends SequentialCommandGroup {
   
   Drivetrain m_drivetrain;
   Arm m_Arm;
   Intake m_Intake;
   RobotContainer m_RobotContainer;
 
-  public NewBlueAmp(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
+  public NewBlueAmp2(Drivetrain Drivetrain, RobotContainer RobotContainer, Arm Arm, Intake Intake) {
   
     m_drivetrain = Drivetrain;
     m_Arm = Arm;
@@ -47,12 +47,20 @@ public class NewBlueAmp extends SequentialCommandGroup {
       
 
       
-      ChoreoPathingWithIntakeAndArm("NewBlue2", false, m_Arm, m_Intake, 60),
+      ChoreoPathingWithIntakeAndArm("NewBlue2_2", false, m_Arm, m_Intake, 60),
       
-      new AutoArm(m_Arm, -50),
-      new ManualShoot(m_Arm, 120),
-      ChoreoPathingWithIntakeAndArm("NewBlue3", false, m_Arm, m_Intake, 60),
-     
+      new ParallelRaceGroup(
+      new ManualIntake(Intake, Arm, 120),
+      m_drivetrain.applyRequest(() -> RobotContainer.driveRobotCentric
+        .withVelocityX(1.5)  
+        .withVelocityY(0) 
+        .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14)) 
+      ).withTimeout(1),
+  
+      ChoreoPathingWithIntake("NewBlue5", false, Arm, Intake),
+      new ManualShoot(Arm, 120),
+
+      ChoreoPathingWithIntake("NewBlue3", false, Arm, Intake),
 
       new ParallelRaceGroup(
       new ManualIntake(Intake, Arm, 120),
@@ -60,10 +68,13 @@ public class NewBlueAmp extends SequentialCommandGroup {
         .withVelocityX(1.5)  
         .withVelocityY(0) 
         .withRotationalRate(-LimelightHelpers.getTX("limelight-ri") / 14)) 
-      ).withTimeout(1.5),
-  
+      ).withTimeout(1),
+
+
       ChoreoPathingWithIntake("NewBlue4", false, Arm, Intake),
       new ManualShoot(Arm, 120)
+
+
       
       
       
