@@ -48,6 +48,7 @@ import frc.robot.autos.LimelightBlueCenterShoot4;
 import frc.robot.autos.LimelightFeedTest;
 import frc.robot.autos.NewBlueAmp;
 import frc.robot.autos.NewBlueAmp2;
+import frc.robot.autos.NewRedAmp;
 import frc.robot.autos.RedAmp;
 import frc.robot.autos.RedAmpMiddle;
 import frc.robot.autos.RedAmpVersion2;
@@ -202,6 +203,8 @@ public class RobotContainer {
     AutoSelect.addOption("New Blue Center Shoot", new BlueNewCenterShoot(drivetrain,this, arm, intake));
     AutoSelect.addOption("New Blue Amp", new NewBlueAmp(drivetrain,this,arm,intake));
     AutoSelect.addOption("New Blue Amp2", new NewBlueAmp2(drivetrain,this,arm,intake));
+    AutoSelect.addOption("New Red Amp", new NewRedAmp(drivetrain,this,arm,intake));
+
 
     SmartDashboard.putData(AutoSelect);
 

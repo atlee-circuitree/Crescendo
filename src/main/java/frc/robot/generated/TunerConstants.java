@@ -87,13 +87,14 @@ public class TunerConstants {
             .withFeedbackSource(SteerFeedbackType.FusedCANcoder)
             .withCouplingGearRatio(kCoupleRatio)
             .withSteerMotorInverted(kSteerMotorReversed);
-
+        //42.640716552734375 yaw before change
+        //0.26367220282554626 roll before change
 
     // Front Left
     private static final int kFrontLeftDriveMotorId = 1;
     private static final int kFrontLeftSteerMotorId = 2;
     private static final int kFrontLeftEncoderId = 13;
-    private static final double kFrontLeftEncoderOffset =  -0.205322265625;
+    private static final double kFrontLeftEncoderOffset =  -0.205078125;
 
     private static final double kFrontLeftXPosInches = 11.125;
     private static final double kFrontLeftYPosInches = 11.125;
