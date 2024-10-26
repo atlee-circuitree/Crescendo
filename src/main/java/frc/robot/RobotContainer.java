@@ -46,8 +46,10 @@ import frc.robot.autos.DriveToSpeaker;
 import frc.robot.autos.ExampleAuto;
 import frc.robot.autos.LimelightBlueCenterShoot4;
 import frc.robot.autos.LimelightFeedTest;
+import frc.robot.autos.NewBlue3Steal;
 import frc.robot.autos.NewBlueAmp;
 import frc.robot.autos.NewBlueAmp2;
+import frc.robot.autos.NewRed3Steal;
 import frc.robot.autos.NewRedAmp;
 import frc.robot.autos.RedAmp;
 import frc.robot.autos.RedAmpMiddle;
@@ -88,7 +90,7 @@ import frc.robot.subsystems.LimelightHelpers;
 public class RobotContainer {
  
   // Variables
-  private static final double MaxSpeed = 6; // 6 meters per second desired top speed
+  private static final double MaxSpeed = 6.21; // 6 meters per second desired top speed (aka "20.4 ft/s")
   private static final double MaxAngularRate = 3 * Math.PI; // Half a rotation per second max angular velocity
   SendableChooser<Command> AutoSelect = new SendableChooser<Command>();
  
@@ -204,6 +206,8 @@ public class RobotContainer {
     AutoSelect.addOption("New Blue Amp", new NewBlueAmp(drivetrain,this,arm,intake));
     AutoSelect.addOption("New Blue Amp2", new NewBlueAmp2(drivetrain,this,arm,intake));
     AutoSelect.addOption("New Red Amp", new NewRedAmp(drivetrain,this,arm,intake));
+    AutoSelect.addOption("New Blue 3 Steal", new NewBlue3Steal(drivetrain,this, arm, intake));
+    AutoSelect.addOption("New Red 3 Steal", new NewRed3Steal(drivetrain,this,arm,intake));
 
 
     SmartDashboard.putData(AutoSelect);
